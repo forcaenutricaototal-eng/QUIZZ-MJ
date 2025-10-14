@@ -33,23 +33,30 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers }) => {
           body: JSON.stringify({ answers }),
         });
 
-        if (!response.ok) {
-          const errorBody = await response.text();
-          let errorMessage = errorBody;
-          try {
-            // Check if the error body is JSON
-            const errorJson = JSON.parse(errorBody);
-            if (errorJson.error) {
-              errorMessage = errorJson.error;
-            }
-          } catch (parseError) {
-            // Not JSON, use the raw text.
-          }
-          throw new Error(errorMessage || 'Falha ao buscar análise do servidor.');
-        }
+        const responseBody = await response.text();
 
-        const data = await response.json();
-        setAnalysis(data.analysis);
+        if (!response.ok) {
+          let errorMessage = responseBody;
+          try {
+            const errorJson = JSON.parse(responseBody);
+            errorMessage = errorJson.error || responseBody;
+          } catch (e) {
+            // Not a JSON response, use the raw text.
+          }
+          throw new Error(errorMessage);
+        }
+        
+        try {
+          const data = JSON.parse(responseBody);
+          if (data.analysis) {
+            setAnalysis(data.analysis);
+          } else {
+             throw new Error("Resposta do servidor não contém a análise esperada.");
+          }
+        } catch (e: any) {
+          console.error('Falha ao analisar a resposta JSON:', responseBody);
+          throw new Error(`A resposta do servidor não está no formato esperado. Detalhe: ${e.message}`);
+        }
       } catch (e: any) {
         console.error('Erro ao gerar análise:', e);
         setError(

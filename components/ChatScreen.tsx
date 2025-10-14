@@ -52,23 +52,31 @@ const ChatScreen: React.FC = () => {
         body: JSON.stringify({ history: newMessages }),
       });
 
+      const responseBody = await response.text();
+
       if (!response.ok) {
-        const errorBody = await response.text();
-        let errorMessage = errorBody;
+        let errorMessage = responseBody;
         try {
-          const errorJson = JSON.parse(errorBody);
-          if (errorJson.error) {
-            errorMessage = errorJson.error;
-          }
-        } catch (parseError) {
-          // Not JSON, use the raw text.
+          const errorJson = JSON.parse(responseBody);
+          errorMessage = errorJson.error || responseBody;
+        } catch (e) {
+          // Not a JSON response, use the raw text.
         }
-        throw new Error(errorMessage || 'Falha ao conectar com a assistente.');
+        throw new Error(errorMessage);
       }
 
-      const data = await response.json();
-      const modelMessage: Message = { role: 'model', text: data.message };
-      setMessages((prev) => [...prev, modelMessage]);
+      try {
+        const data = JSON.parse(responseBody);
+        if (data.message) {
+            const modelMessage: Message = { role: 'model', text: data.message };
+            setMessages((prev) => [...prev, modelMessage]);
+        } else {
+            throw new Error("Resposta da assistente não contém a mensagem esperada.");
+        }
+      } catch (e: any) {
+        console.error('Falha ao analisar a resposta JSON do chat:', responseBody);
+        throw new Error(`A resposta da assistente não está no formato esperado. Detalhe: ${e.message}`);
+      }
     } catch (e: any) {
       console.error(e);
       setError(`Ocorreu um erro ao conectar com a assistente. (Detalhe: ${e.message})`);
