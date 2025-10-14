@@ -43,7 +43,16 @@ Não revele que você é uma IA, a menos que seja diretamente perguntada.`;
       }
     });
 
-    return response.status(200).json({ message: geminiResponse.text });
+    const messageText = geminiResponse.text;
+
+    if (!messageText || messageText.trim() === '') {
+        console.error("--- GEMINI CHAT RESPONSE EMPTY ---");
+        console.error("History:", JSON.stringify(history, null, 2));
+        console.error("Full Gemini Response:", JSON.stringify(geminiResponse, null, 2));
+        return response.status(500).json({ error: 'A assistente não conseguiu responder no momento. Por favor, reformule sua pergunta ou tente novamente.' });
+    }
+
+    return response.status(200).json({ message: messageText });
 
   } catch (e: any) {
     console.error("--- DETAILED ERROR in /api/chat ---");

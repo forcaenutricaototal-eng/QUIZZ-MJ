@@ -164,7 +164,16 @@ export default async function handler(
             }
         });
         
-        return response.status(200).json({ analysis: geminiResponse.text });
+        const analysisText = geminiResponse.text;
+
+        if (!analysisText || analysisText.trim() === '') {
+            console.error("--- GEMINI RESPONSE EMPTY ---");
+            console.error("Prompt Summary:", promptSummary);
+            console.error("Full Gemini Response:", JSON.stringify(geminiResponse, null, 2));
+            return response.status(500).json({ error: 'A IA não conseguiu gerar uma análise para estas respostas. Isso pode ocorrer devido a restrições de segurança ou uma falha temporária. Por favor, tente novamente.' });
+        }
+
+        return response.status(200).json({ analysis: analysisText });
 
     } catch (e: any) {
         console.error("--- DETAILED ERROR in /api/generate ---");
