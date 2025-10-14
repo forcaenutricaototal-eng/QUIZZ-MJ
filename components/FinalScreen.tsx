@@ -26,34 +26,47 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers }) => {
 
       try {
         const response = await fetch('/api/generate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ answers }),
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ answers }),
         });
 
-        const data = await response.json();
-
         if (!response.ok) {
-            throw new Error(data.error || 'Falha ao buscar análise do servidor.');
+          const errorBody = await response.text();
+          let errorMessage = errorBody;
+          try {
+            // Check if the error body is JSON
+            const errorJson = JSON.parse(errorBody);
+            if (errorJson.error) {
+              errorMessage = errorJson.error;
+            }
+          } catch (parseError) {
+            // Not JSON, use the raw text.
+          }
+          throw new Error(errorMessage || 'Falha ao buscar análise do servidor.');
         }
-        
-        setAnalysis(data.analysis);
 
+        const data = await response.json();
+        setAnalysis(data.analysis);
       } catch (e: any) {
-        console.error("Erro ao gerar análise:", e);
-        setError(`Ocorreu um erro ao gerar sua análise. Por favor, tente recarregar a página. (Detalhe: ${e.message || 'Erro desconhecido'})`);
+        console.error('Erro ao gerar análise:', e);
+        setError(
+          `Ocorreu um erro ao gerar sua análise. Por favor, tente recarregar a página. (Detalhe: ${
+            e.message || 'Erro desconhecido'
+          })`,
+        );
       } finally {
         setIsLoading(false);
       }
     };
 
     if (Object.keys(answers).length > 0) {
-        generateAnalysis();
+      generateAnalysis();
     } else {
-        setIsLoading(false);
-        setAnalysis('Por favor, responda o quiz para receber sua análise personalizada.');
+      setIsLoading(false);
+      setAnalysis('Por favor, responda o quiz para receber sua análise personalizada.');
     }
   }, [answers]);
 

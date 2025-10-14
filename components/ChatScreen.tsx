@@ -47,24 +47,32 @@ const ChatScreen: React.FC = () => {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ history: newMessages }),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.error || 'Falha ao conectar com a assistente.');
+        const errorBody = await response.text();
+        let errorMessage = errorBody;
+        try {
+          const errorJson = JSON.parse(errorBody);
+          if (errorJson.error) {
+            errorMessage = errorJson.error;
+          }
+        } catch (parseError) {
+          // Not JSON, use the raw text.
+        }
+        throw new Error(errorMessage || 'Falha ao conectar com a assistente.');
       }
-      
-      const modelMessage: Message = { role: 'model', text: data.message };
-      setMessages(prev => [...prev, modelMessage]);
 
+      const data = await response.json();
+      const modelMessage: Message = { role: 'model', text: data.message };
+      setMessages((prev) => [...prev, modelMessage]);
     } catch (e: any) {
       console.error(e);
       setError(`Ocorreu um erro ao conectar com a assistente. (Detalhe: ${e.message})`);
-      setMessages(prev => prev.slice(0, -1)); // Remove user message on error
+      setMessages((prev) => prev.slice(0, -1)); // Remove user message on error
       setInput(currentInput); // Restore input
     } finally {
       setIsLoading(false);
