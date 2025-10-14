@@ -11,9 +11,7 @@ export const QUIZ_DATA: QuizQuestion[] = [
       { label: 'Metabolismo lento (tireoide, menopausa) 🐢', value: 'metabolismo' },
       { label: 'Inchaço, retenção de líquidos e inflamação 💧', value: 'inchaco_inflamacao' },
       { label: 'Falta de consistência para seguir um plano ⏳', value: 'consistencia' },
-      { label: 'Sinto que já tentei de tudo e nada funciona 😩', value: 'frustracao' },
       { label: 'Tenho lipedema', value: 'lipedema' },
-      { label: 'Nenhuma das opções acima ✅', value: 'nenhuma' },
     ],
     transitionMessage: 'Entendido. Esses são desafios comuns, mas acredite, existe um caminho natural para superá-los. Vamos continuar.',
      socialProof: {
@@ -44,7 +42,6 @@ export const QUIZ_DATA: QuizQuestion[] = [
       { label: 'Exercícios intensos 🏋️‍♀️', value: 'exercicios' },
       { label: 'Protocolos naturais / caseiros 🌿', value: 'naturais' },
       { label: 'Cirurgias bariátricas 🏥', value: 'bariatrica' },
-      { label: 'Nunca segui nada consistentemente 🤷‍♀️', value: 'inconsistente' },
     ],
     conditionalMessages: {
       medicamentos: 'Entendo — muitas relatam resultados rápidos com remédio, mas sem estabilidade. Vamos ver o que seu corpo realmente precisa.',

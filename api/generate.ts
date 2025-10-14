@@ -28,9 +28,7 @@ const QUIZ_DATA: QuizQuestion[] = [
         { label: 'Metabolismo lento (tireoide, menopausa) 🐢', value: 'metabolismo' },
         { label: 'Inchaço, retenção de líquidos e inflamação 💧', value: 'inchaco_inflamacao' },
         { label: 'Falta de consistência para seguir um plano ⏳', value: 'consistencia' },
-        { label: 'Sinto que já tentei de tudo e nada funciona 😩', value: 'frustracao' },
         { label: 'Tenho lipedema', value: 'lipedema' },
-        { label: 'Nenhuma das opções acima ✅', value: 'nenhuma' },
         ],
     },
     {
@@ -55,7 +53,6 @@ const QUIZ_DATA: QuizQuestion[] = [
         { label: 'Exercícios intensos 🏋️‍♀️', value: 'exercicios' },
         { label: 'Protocolos naturais / caseiros 🌿', value: 'naturais' },
         { label: 'Cirurgias bariátricas 🏥', value: 'bariatrica' },
-        { label: 'Nunca segui nada consistentemente 🤷‍♀️', value: 'inconsistente' },
         ],
     },
     {
@@ -157,7 +154,7 @@ export default async function handler(
         const userContent = `Aqui estão as respostas da usuária para você analisar:\n${promptSummary}`;
 
         const geminiResponse = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
+            model: 'gem-2.5-flash',
             contents: userContent,
             config: {
                 systemInstruction: systemInstruction
