@@ -4,7 +4,7 @@
   "private": true,
   "description": "Dependencies for Vercel Serverless Functions",
   "scripts": {
-    "build": "esbuild index.tsx --bundle --outfile=dist/index.js --jsx=automatic --allow-overwrite"
+    "build": "mkdir -p public/dist && cp index.html public/ && esbuild index.tsx --bundle --outfile=public/dist/index.js --jsx=automatic --allow-overwrite"
   },
   "dependencies": {
     "@google/genai": "^1.24.0",
