@@ -27,6 +27,9 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers }) => {
       setError(null);
 
       try {
+        if (!process.env.API_KEY) {
+          throw new Error("A chave da API do Google não foi configurada.");
+        }
         const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
 
         const promptSummary = QUIZ_DATA.map(question => {
@@ -82,9 +85,9 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers }) => {
 
         setAnalysis(response.text);
 
-      } catch (e) {
-        console.error(e);
-        setError('Ocorreu um erro ao gerar sua análise. Por favor, tente recarregar a página.');
+      } catch (e: any) {
+        console.error("Erro ao gerar análise:", e);
+        setError(`Ocorreu um erro ao gerar sua análise. Por favor, tente recarregar a página. (Detalhe: ${e.message || 'Erro desconhecido'})`);
       } finally {
         setIsLoading(false);
       }

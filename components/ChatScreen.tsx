@@ -27,6 +27,9 @@ const ChatScreen: React.FC = () => {
 
   useEffect(() => {
     try {
+      if (!process.env.API_KEY) {
+          throw new Error("A chave da API do Google não foi configurada.");
+      }
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
       chatRef.current = ai.chats.create({
         model: 'gemini-2.5-flash',
@@ -46,9 +49,9 @@ Não revele que você é uma IA, a menos que seja diretamente perguntada.`,
       setMessages([
         { role: 'model', text: 'Seu resultado está pronto! 🎉 Eu sou a Lua, sua assistente. Estou aqui para tirar qualquer dúvida que você tenha antes de falar com a nossa especialista. O que você gostaria de saber?' },
       ]);
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
-      setError('Não foi possível iniciar a assistente. Por favor, tente novamente mais tarde.');
+      setError(`Não foi possível iniciar a assistente. (Detalhe: ${e.message})`);
     }
   }, []);
 
@@ -73,9 +76,9 @@ Não revele que você é uma IA, a menos que seja diretamente perguntada.`,
       const response: GenerateContentResponse = await chatRef.current.sendMessage({ message: currentInput });
       const modelMessage: Message = { role: 'model', text: response.text };
       setMessages(prev => [...prev, modelMessage]);
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
-      setError('Ocorreu um erro ao conectar com a assistente. Tente novamente.');
+      setError(`Ocorreu um erro ao conectar com a assistente. (Detalhe: ${e.message})`);
       // Revert state on error
       setMessages(prev => prev.slice(0, -1));
       setInput(currentInput);
