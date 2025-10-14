@@ -96,7 +96,7 @@ export default async function handler(
         }
 
         if (!process.env.API_KEY) {
-            return response.status(500).json({ error: "A chave da API do Google não foi configurada no ambiente do servidor." });
+            return response.status(500).json({ error: "A chave da API do Google não foi configurada no ambiente do servidor. Por favor, adicione a variável de ambiente API_KEY nas configurações do projeto no Vercel e faça um novo deploy." });
         }
         const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
         
@@ -154,7 +154,24 @@ export default async function handler(
         return response.status(200).json({ analysis: geminiResponse.text });
 
     } catch (e: any) {
-        console.error("Error in /api/generate:", e);
-        return response.status(500).json({ error: e.message || 'An unknown error occurred.' });
+        console.error("--- DETAILED ERROR in /api/generate ---");
+        console.error("Error Message:", e.message);
+        console.error("Error Stack:", e.stack);
+        if (e.cause) console.error("Error Cause:", e.cause);
+        console.error("--- END OF ERROR ---");
+        
+        let errorMessage = 'Ocorreu um erro desconhecido.';
+        if (e.message) {
+            if (e.message.includes('API key not valid')) {
+                errorMessage = 'A chave de API fornecida parece ser inválida. Verifique a chave nas configurações do Vercel e faça um novo deploy.';
+            } else if (e.message.includes('permission denied')) {
+                errorMessage = 'Permissão negada pela API do Google. Verifique se a API do Gemini está ativada no seu projeto Google Cloud e se a chave tem as permissões corretas.';
+            } else if (e.message.includes('timed out')) {
+                 errorMessage = 'A solicitação demorou muito para responder. Tente novamente.';
+            } else {
+                errorMessage = e.message;
+            }
+        }
+        return response.status(500).json({ error: errorMessage });
     }
 }
