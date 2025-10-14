@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "description": "Dependencies for Vercel Serverless Functions",
+  "scripts": {
+    "build": "esbuild index.tsx --bundle --outfile=dist/index.js --jsx=automatic --allow-overwrite"
+  },
   "dependencies": {
     "@google/genai": "^1.24.0",
     "@vercel/node": "^5.3.26"
   },
   "devDependencies": {
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "esbuild": "0.23.0"
   }
 }
