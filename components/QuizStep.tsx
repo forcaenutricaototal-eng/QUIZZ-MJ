@@ -73,7 +73,7 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
   return (
     <div className="p-6 md:p-8 w-full max-w-3xl mx-auto animate-fade-in">
       <div className="text-center mb-8">
-        <h2 className="text-2xl md:text-3xl font-bold text-white">{question.text}</h2>
+        <h2 className={`text-2xl md:text-3xl font-bold ${isLastStep ? 'text-emerald-400' : 'text-white'}`}>{question.text}</h2>
         {question.type === QuestionType.Multiple && (
           <p className="text-gray-400 text-md mt-2">
             (Selecione uma ou mais opções)

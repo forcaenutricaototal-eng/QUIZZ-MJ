@@ -67,12 +67,12 @@ const QUIZ_DATA: QuizQuestion[] = [
     },
     {
         id: 5,
-        text: 'O Monjaro de farmácia sacia, mas não regula. O Monjaro Japonês te dá o controle e a saciedade de forma natural. Você aceita conhecer esse caminho? 🍵',
+        text: 'O Monjaro farmacêutico trata o sintoma. O Monjaro Japonês trata a causa. Resultado real: saciedade natural, menos compulsão e menos inchaço. Está pronta para a mudança que realmente funciona?',
         type: QuestionType.Single,
         options: [
-        { label: 'Sim, quero ter o controle da minha saciedade! ✅', value: 'sim_controle' },
-        { label: 'Quero entender melhor como funciona 🤔', value: 'entender_melhor' },
-        { label: 'Ainda estou em dúvida 🤷‍♀️', value: 'duvida' },
+          { label: 'Sim, estou pronta para a mudança! ✅', value: 'sim_pronta' },
+          { label: 'Quero saber mais sobre a causa 🤔', value: 'saber_mais' },
+          { label: 'Ainda não tenho certeza 🤷‍♀️', value: 'nao_tenho_certeza' },
         ],
     },
 ];
