@@ -51,7 +51,6 @@ const QUIZ_DATA: QuizQuestion[] = [
         { label: 'Medicamentos (ex: Ozempic, Monjaro)', value: 'medicamentos' },
         { label: 'Dietas restritivas (low-carb, jejum) 🥗', value: 'dietas' },
         { label: 'Exercícios intensos 🏋️‍♀️', value: 'exercicios' },
-        { label: 'Protocolos naturais / caseiros 🌿', value: 'naturais' },
         { label: 'Cirurgias bariátricas 🏥', value: 'bariatrica' },
         ],
     },
@@ -154,7 +153,7 @@ export default async function handler(
         const userContent = `Aqui estão as respostas da usuária para você analisar:\n${promptSummary}`;
 
         const geminiResponse = await ai.models.generateContent({
-            model: 'gem-2.5-flash',
+            model: 'gemini-2.5-flash',
             contents: userContent,
             config: {
                 systemInstruction: systemInstruction

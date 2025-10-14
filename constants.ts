@@ -40,7 +40,6 @@ export const QUIZ_DATA: QuizQuestion[] = [
       { label: 'Medicamentos (ex: Ozempic, Monjaro)', value: 'medicamentos' },
       { label: 'Dietas restritivas (low-carb, jejum) 🥗', value: 'dietas' },
       { label: 'Exercícios intensos 🏋️‍♀️', value: 'exercicios' },
-      { label: 'Protocolos naturais / caseiros 🌿', value: 'naturais' },
       { label: 'Cirurgias bariátricas 🏥', value: 'bariatrica' },
     ],
     conditionalMessages: {
