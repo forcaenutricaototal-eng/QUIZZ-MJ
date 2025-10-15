@@ -56,10 +56,10 @@ export const QUIZ_DATA: QuizQuestion[] = [
     text: 'Qual seu objetivo principal? 🏆',
     type: QuestionType.Multiple,
     options: [
-      { label: 'Emagrecer com saúde e consistência ❤️', value: 'saude' },
-      { label: 'Controlar fome e compulsão 🍽️', value: 'fome_compulsao' },
-      { label: 'Desinflamar e reduzir retenção ✨', value: 'desinflamar' },
-      { label: 'Manter o resultado com equilíbrio ⚖️', value: 'manter' },
+      { label: 'Eliminar gordura abdominal 🎯', value: 'gordura_abdominal' },
+      { label: 'Controlar fome e compulsão alimentar 🧠', value: 'fome_compulsao' },
+      { label: 'Desinflamar e reduzir retenção de líquidos (inclusive nas pernas) 💧', value: 'desinflamar_retencao' },
+      { label: 'Manter os resultados com equilíbrio e leveza ✨', value: 'manter_resultados' },
     ],
     socialProof: {
       name: 'Laís Moreira',
