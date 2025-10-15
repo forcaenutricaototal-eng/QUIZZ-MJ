@@ -58,7 +58,7 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
 
   const renderOption = (option: Option) => {
     const isSelected = selected.includes(option.value);
-    const commonClasses = "p-4 rounded-full text-center w-full transition-all duration-200 shadow-md cursor-pointer";
+    const commonClasses = "p-3 rounded-full text-center w-full transition-all duration-200 shadow-md cursor-pointer text-base md:text-lg";
     const selectedClasses = "bg-red-500 text-white font-bold";
     const unselectedClasses = "bg-yellow-400 text-black font-bold hover:bg-red-500 hover:text-white";
 
@@ -105,7 +105,7 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
         <button
           onClick={handleNextClick}
           disabled={selected.length === 0}
-          className={`font-bold py-3 px-12 rounded-lg text-lg transition-colors shadow-md w-full sm:w-auto ${
+          className={`font-bold py-3 px-8 rounded-lg text-base md:text-lg transition-colors shadow-md w-full sm:w-auto ${
             showTransition
               ? 'bg-slate-400 text-white'
               : 'bg-green-500 hover:bg-green-600 text-white disabled:bg-slate-400 disabled:cursor-not-allowed'
@@ -116,7 +116,7 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
         {!isFirstStep && !showTransition && (
             <button
                 onClick={onBack}
-                className="bg-white text-black font-bold py-3 px-8 rounded-lg text-lg hover:bg-gray-200 transition-colors w-full sm:w-auto"
+                className="bg-white text-black font-bold py-3 px-8 rounded-lg text-base md:text-lg hover:bg-gray-200 transition-colors w-full sm:w-auto"
             >
                 Voltar
             </button>

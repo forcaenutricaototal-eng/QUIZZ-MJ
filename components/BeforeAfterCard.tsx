@@ -43,7 +43,7 @@ const BeforeAfterCard: React.FC<BeforeAfterCardProps> = ({ proof }) => {
 
 
       <div className="relative pt-3">
-        <p className="text-xl pr-12">{proof.description}</p>
+        <p className="text-base md:text-lg pr-12">{proof.description}</p>
         <div className="absolute bottom-0 right-0 text-sm text-gray-500">
             <span>{formattedTime}</span>
         </div>
