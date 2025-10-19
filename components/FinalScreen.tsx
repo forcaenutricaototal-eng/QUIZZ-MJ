@@ -146,7 +146,9 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
           </div>
 
           <div className="p-6 bg-gray-50 rounded-xl border border-gray-200">
-              <h3 className="text-2xl font-bold text-emerald-900 mb-4">Prefere Acompanhamento Premium?</h3>
+              <h3 className="text-2xl font-bold text-emerald-900 mb-4">
+                Prefere<br />Acompanhamento<br />Premium?
+              </h3>
               <p className="text-gray-700 leading-relaxed mb-6 text-center">
                 Se você precisa de um suporte mais próximo com nosso grupo fechado no WhatsApp e acesso ao aplicativo exclusivo, fale diretamente comigo.
               </p>
