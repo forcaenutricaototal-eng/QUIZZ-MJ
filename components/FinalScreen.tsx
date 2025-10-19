@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 interface FinalScreenProps {
   answers: Record<number, string[]>;
+  name: string;
 }
 
-const FinalScreen: React.FC<FinalScreenProps> = ({ answers }) => {
+const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
   const [analysis, setAnalysis] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -19,13 +20,13 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers }) => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ answers }),
+          body: JSON.stringify({ answers, name }),
         });
 
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.error || 'Falha ao gerar a análise.');
+          throw new Error(data.error || 'Falha ao gerar la análisis.');
         }
         setAnalysis(data.analysis);
       } catch (e: any) {
@@ -35,7 +36,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers }) => {
       }
     };
     generateAnalysis();
-  }, [answers]);
+  }, [answers, name]);
 
   const renderFormattedText = (text: string) => {
     const parts = text.split(/(\*\*.*?\*\*)/g).filter(p => p.trim() !== '');
@@ -88,7 +89,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers }) => {
   return (
     <div className="p-6 md:p-8 animate-fade-in w-full max-w-2xl mx-auto bg-white rounded-2xl shadow-xl text-gray-800">
       <h2 className="text-2xl md:text-3xl font-bold text-emerald-800 mb-4 text-center">
-        ✨ Sua Análise Personalizada está Pronta!
+        ✨ {name ? `${name}, sua` : 'Sua'} Análise Personalizada está Pronta!
       </h2>
       
       {analysis && (

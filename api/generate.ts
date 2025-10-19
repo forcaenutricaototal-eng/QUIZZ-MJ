@@ -59,10 +59,10 @@ const QUIZ_DATA: QuizQuestion[] = [
         text: 'Qual seu objetivo principal? 🏆',
         type: QuestionType.Multiple,
         options: [
-        { label: 'Emagrecer com saúde e consistência ❤️', value: 'saude' },
-        { label: 'Controlar fome e compulsão 🍽️', value: 'fome_compulsao' },
-        { label: 'Desinflamar e reduzir retenção ✨', value: 'desinflamar' },
-        { label: 'Manter o resultado com equilíbrio ⚖️', value: 'manter' },
+        { label: 'Eliminar gordura abdominal 🎯', value: 'gordura_abdominal' },
+        { label: 'Controlar fome e compulsão alimentar 🧠', value: 'fome_compulsao' },
+        { label: 'Desinflamar e reduzir retenção de líquidos (inclusive nas pernas) 💧', value: 'desinflamar_retencao' },
+        { label: 'Manter os resultados com equilíbrio e leveza ✨', value: 'manter_resultados' },
         ],
     },
     {
@@ -86,7 +86,7 @@ export default async function handler(
     }
 
     try {
-        const { answers } = request.body;
+        const { answers, name } = request.body;
         if (!answers) {
           return response.status(400).json({ error: 'Missing answers in request body' });
         }
@@ -110,9 +110,13 @@ export default async function handler(
         const ageAnswer = answers[2]?.[0];
         const ageRangesOver40 = ['35-44', '45-54', '55-64', '65+'];
         const isOver40 = ageAnswer && ageRangesOver40.includes(ageAnswer);
+        const userName = name ? name.split(' ')[0] : 'Você';
 
         let systemInstruction = `
           Você é Simone, uma especialista em emagrecimento para mulheres acima de 40. Sua tarefa é analisar as respostas de um quiz e criar um diagnóstico personalizado, empático e encorajador.
+
+          **NOME DA USUÁRIA:** ${userName}
+          **IMPORTANTE:** Comece a resposta se dirigindo a ela pelo nome (Ex: "Olá, ${userName}!"). Use o nome dela de forma natural e pessoal ao longo do texto para criar conexão.
 
           **Formato da Resposta (Siga EXATAMENTE):**
           A resposta DEVE ter 3 seções, com estes títulos exatos:
@@ -146,11 +150,11 @@ export default async function handler(
         if (isOver40) {
           systemInstruction += `
           \n**HISTÓRIA PESSOAL (OBRIGATÓRIO PARA ESTA USUÁRIA):**
-          Como esta usuária tem 40 anos ou mais, você DEVE incluir sua história pessoal na seção **O Caminho para seu Resultado**. Diga exatamente isto, de forma natural: "Eu entendo perfeitamente sua luta, pois já estive aí. Em 2017, eu eliminei 73kg. Eu sofria com uma compulsão alimentar muito forte e com lipedema grau 3, um quadro que muitos consideravam impossível de reverter. Foi o Monjaro Japonês que me permitiu vencer essa batalha, pois a estratégia é desenhada para ser altamente eficiente em casos como o nosso. Eu sou a prova viva disso." Use isso para gerar confiança.
+          Como esta usuária tem 40 anos ou mais, você DEVE incluir sua história pessoal na seção **O Caminho para seu Resultado**. Diga exatamente isto, de forma natural: "Eu entendo perfeitamente sua luta, ${userName}, pois já estive aí. Em 2017, eu eliminei 73kg. Eu sofria com uma compulsão alimentar muito forte e com lipedema grau 3, um quadro que muitos consideravam impossível de reverter. Foi o Monjaro Japonês que me permitiu vencer essa batalha, pois a estratégia é desenhada para ser altamente eficiente em casos como o nosso. Eu sou a prova viva disso." Use isso para gerar confiança.
           `;
         }
         
-        const userContent = `Aqui estão as respostas da usuária para você analisar:\n${promptSummary}`;
+        const userContent = `Aqui estão as respostas da usuária ${userName} para você analisar:\n${promptSummary}`;
 
         const geminiResponse = await ai.models.generateContent({
             model: 'gemini-2.5-flash',

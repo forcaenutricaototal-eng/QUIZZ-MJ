@@ -1,0 +1,47 @@
+import React, { useState } from 'react';
+
+interface NameStepProps {
+  onSubmit: (name: string) => void;
+}
+
+const NameStep: React.FC<NameStepProps> = ({ onSubmit }) => {
+  const [name, setName] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (name.trim()) {
+      onSubmit(name.trim());
+    }
+  };
+
+  return (
+    <div className="p-6 md:p-8 w-full max-w-lg mx-auto animate-fade-in text-center">
+      <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+        Antes de começarmos...
+      </h2>
+      <p className="text-gray-300 mb-8">
+        Para personalizar sua análise, qual é o seu primeiro nome?
+      </p>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 items-center">
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Digite seu nome aqui"
+          className="w-full max-w-sm bg-gray-800 text-white border border-gray-600 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-center text-lg"
+          required
+          autoFocus
+        />
+        <button
+          type="submit"
+          disabled={!name.trim()}
+          className="font-bold py-3 px-8 rounded-lg text-lg transition-colors shadow-md w-full max-w-sm bg-green-500 hover:bg-green-600 text-white disabled:bg-slate-400 disabled:cursor-not-allowed"
+        >
+          Começar o Quiz
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default NameStep;

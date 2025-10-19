@@ -2,14 +2,22 @@ import React, { useState } from 'react';
 import { QUIZ_DATA } from './constants';
 import QuizStep from './components/QuizStep';
 import FinalScreen from './components/FinalScreen';
+import NameStep from './components/NameStep';
 
 const App: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string[]>>({});
+  const [userName, setUserName] = useState<string>('');
+  const [quizStarted, setQuizStarted] = useState(false);
 
   const totalSteps = QUIZ_DATA.length;
   const isQuizFinished = currentStep >= totalSteps;
   const currentQuestion = QUIZ_DATA[currentStep];
+
+  const handleNameSubmit = (name: string) => {
+    setUserName(name);
+    setQuizStarted(true);
+  };
 
   const handleNext = (selectedAnswers: string[]) => {
     setAnswers(prev => ({
@@ -39,30 +47,36 @@ const App: React.FC = () => {
       </header>
       
       <main className="w-full flex-grow flex flex-col items-center justify-center">
-        {!isQuizFinished && (
-          <div className="w-full max-w-3xl mx-auto mb-4">
-            <div className="bg-gray-800 rounded-full h-2.5">
-              <div
-                className="bg-emerald-500 h-2.5 rounded-full transition-all duration-500"
-                style={{ width: `${progressPercentage}%` }}
-              ></div>
-            </div>
-            <p className="text-right text-sm text-gray-400 mt-1">Pergunta {currentStep + 1} de {totalSteps}</p>
-          </div>
-        )}
-
-        {isQuizFinished ? (
-          <FinalScreen answers={answers} />
+        {!quizStarted ? (
+          <NameStep onSubmit={handleNameSubmit} />
         ) : (
-          <QuizStep
-            key={currentQuestion.id}
-            question={currentQuestion}
-            onNext={handleNext}
-            onBack={handleBack}
-            isFirstStep={currentStep === 0}
-            isLastStep={currentStep === totalSteps - 1}
-            initialSelection={answers[currentQuestion.id] || []}
-          />
+          <>
+            {!isQuizFinished && (
+              <div className="w-full max-w-3xl mx-auto mb-4">
+                <div className="bg-gray-800 rounded-full h-2.5">
+                  <div
+                    className="bg-emerald-500 h-2.5 rounded-full transition-all duration-500"
+                    style={{ width: `${progressPercentage}%` }}
+                  ></div>
+                </div>
+                <p className="text-right text-sm text-gray-400 mt-1">Pergunta {currentStep + 1} de {totalSteps}</p>
+              </div>
+            )}
+
+            {isQuizFinished ? (
+              <FinalScreen answers={answers} name={userName} />
+            ) : (
+              <QuizStep
+                key={currentQuestion.id}
+                question={currentQuestion}
+                onNext={handleNext}
+                onBack={handleBack}
+                isFirstStep={currentStep === 0}
+                isLastStep={currentStep === totalSteps - 1}
+                initialSelection={answers[currentQuestion.id] || []}
+              />
+            )}
+          </>
         )}
       </main>
 
