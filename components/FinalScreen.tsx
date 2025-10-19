@@ -64,7 +64,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers }) => {
           </svg>
         </div>
         <h2 className="text-2xl font-bold text-emerald-800">Analisando suas respostas...</h2>
-        <p className="text-gray-600 mt-2">Estamos preparando um diagnóstico personalizado para você. Só um instante! 🍵</p>
+        <p className="text-gray-600 mt-2">Estamos preparando uma análise personalizada para você. Só um instante! 🍵</p>
       </div>
     );
   }
@@ -88,7 +88,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers }) => {
   return (
     <div className="p-6 md:p-8 animate-fade-in w-full max-w-2xl mx-auto bg-white rounded-2xl shadow-xl text-gray-800">
       <h2 className="text-2xl md:text-3xl font-bold text-emerald-800 mb-4 text-center">
-        ✨ Seu Diagnóstico Personalizado está Pronto!
+        ✨ Sua Análise Personalizada está Pronta!
       </h2>
       
       {analysis && (
@@ -153,9 +153,9 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers }) => {
                 href="https://wa.me/5513996005779"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block w-full bg-green-500 hover:bg-green-600 text-white font-bold text-lg py-3 px-6 rounded-full shadow-lg transition-transform transform hover:scale-105"
+                className="inline-block bg-green-500 hover:bg-green-600 text-white font-bold text-lg py-4 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 text-center"
               >
-                Falar com Especialista no WhatsApp
+                Falar com<br />Especialista no<br />WhatsApp
               </a>
           </div>
       </div>
