@@ -106,7 +106,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers }) => {
           </p>
 
           <div className="my-8 p-6 bg-emerald-50 rounded-xl border-2 border-emerald-500 shadow-lg relative">
-            <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-sm font-bold px-3 py-1 rounded-full">MAIS POPULAR</span>
+            <span className="absolute -top-5 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-sm font-bold px-3 py-1 rounded-full">MAIS POPULAR</span>
             <h3 className="text-xl font-bold text-emerald-900 mb-4">Acesso Imediato ao Protocolo</h3>
             <p className="text-gray-600 mb-4">Ideal para quem quer começar agora, de forma independente.</p>
             <ul className="space-y-3 text-left text-gray-700 mb-6">
@@ -127,11 +127,11 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers }) => {
               href="https://pay.kiwify.com.br/iDBgO2e"
               target="_blank"
               rel="noopener noreferrer"
-              className="mx-auto flex flex-col items-center justify-center w-52 h-52 md:w-56 md:h-56 bg-red-500 hover:bg-red-600 text-white font-bold text-lg p-4 rounded-full shadow-lg transition-transform transform hover:scale-105 text-center leading-tight"
+              className="mx-auto flex flex-col items-center justify-center w-48 h-48 bg-red-500 hover:bg-red-600 text-white font-bold p-5 rounded-full shadow-lg transition-transform transform hover:scale-105 text-center uppercase"
             >
-              <span className="text-3xl mb-1">👉</span>
-              <span className="font-semibold">Quero garantir meu</span>
-              <span>Detox por R$47</span>
+              <span className="text-xs font-semibold leading-tight">Quero começar a aplicar o meu</span>
+              <span className="text-base font-extrabold leading-tight my-1">Monjaro Japonês</span>
+              <span className="text-xs font-semibold leading-tight">Agora</span>
             </a>
           </div>
           
