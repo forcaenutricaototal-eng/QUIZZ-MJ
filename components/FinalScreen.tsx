@@ -112,7 +112,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers }) => {
             <ul className="space-y-3 text-left text-gray-700 mb-6">
               <li className="flex items-start">
                 <span className="mr-3 text-lg">✅</span>
-                <span><strong>Protocolo Detox 10 Japonês</strong> (10 dias para destravar seus hormônios de saciedade)</span>
+                <span><strong>Protocolo do Monjaro Japonês</strong> (10 dias para destravar seus hormônios de saciedade)</span>
               </li>
               <li className="flex items-start">
                 <span className="mr-3 text-lg">📘</span>
@@ -127,9 +127,11 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers }) => {
               href="https://pay.kiwify.com.br/iDBgO2e"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full inline-flex items-center justify-center bg-red-500 hover:bg-red-600 text-white font-bold text-lg md:text-xl py-4 px-6 rounded-full shadow-lg transition-transform transform hover:scale-105"
+              className="mx-auto flex flex-col items-center justify-center w-52 h-52 md:w-56 md:h-56 bg-red-500 hover:bg-red-600 text-white font-bold text-lg p-4 rounded-full shadow-lg transition-transform transform hover:scale-105 text-center leading-tight"
             >
-              👉 Quero garantir meu Detox por R$47
+              <span className="text-3xl mb-1">👉</span>
+              <span className="font-semibold">Quero garantir meu</span>
+              <span>Detox por R$47</span>
             </a>
           </div>
           
