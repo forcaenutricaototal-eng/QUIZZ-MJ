@@ -145,11 +145,9 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers }) => {
           </div>
 
           <div className="p-6 bg-gray-50 rounded-xl border border-gray-200">
-              <h3 className="text-2xl font-bold text-emerald-900 mb-4">Meu Convite para Você</h3>
-              <p className="text-gray-700 leading-relaxed mb-6 text-left">
-                  Seu caso tem solução e você está muito perto de senti-la na prática. Preparei um protocolo inicial personalizado que pode revolucionar sua relação com a comida e seu corpo.
-                  <br/><br/>
-                  Quero te convidar para conversarmos diretamente no WhatsApp, onde poderei te apresentar o acesso exclusivo ao nosso aplicativo e começarmos essa jornada juntas. Clique no botão abaixo para dar o primeiro passo! ✅
+              <h3 className="text-2xl font-bold text-emerald-900 mb-4">Prefere Acompanhamento Premium?</h3>
+              <p className="text-gray-700 leading-relaxed mb-6 text-center">
+                Se você precisa de um suporte mais próximo com nosso grupo fechado no WhatsApp e acesso ao aplicativo exclusivo, fale diretamente comigo.
               </p>
               <a
                 href="https://wa.me/5513996005779"
@@ -157,7 +155,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers }) => {
                 rel="noopener noreferrer"
                 className="inline-block w-full bg-green-500 hover:bg-green-600 text-white font-bold text-lg py-3 px-6 rounded-full shadow-lg transition-transform transform hover:scale-105"
               >
-                Comece sua jornada no WhatsApp
+                Falar com Especialista no WhatsApp
               </a>
           </div>
       </div>
