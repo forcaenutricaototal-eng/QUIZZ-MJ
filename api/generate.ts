@@ -226,7 +226,7 @@ export default async function handler(
         const userContent = `Aqui estão as respostas do usuário ${userName} para você analisar:\n${promptSummary}`;
 
         const geminiResponse = await ai.models.generateContent({
-            model: 'gem-2.5-flash',
+            model: 'gemini-2.5-flash',
             contents: userContent,
             config: {
                 systemInstruction: systemInstruction
