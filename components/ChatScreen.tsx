@@ -124,7 +124,7 @@ const ChatScreen: React.FC = () => {
             className="mb-4 w-full inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold text-lg py-3 px-6 rounded-full shadow-lg transition-transform transform hover:scale-105"
         >
             <WhatsAppIconSVG />
-            Falar com Simone no WhatsApp
+            Liberar meu Protocolo com a Simone
         </a>
         <form onSubmit={handleSendMessage} className="flex items-center gap-2">
           <input

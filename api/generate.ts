@@ -158,8 +158,8 @@ export default async function handler(
 
               3.  **Meu Convite para Você:**
                   *   Faça uma chamada para ação clara e direta.
-                  *   Convide-o para conversar com nossa equipe no WhatsApp para receber acesso ao protocolo personalizado através de um **aplicativo exclusivo**.
-                  *   Exemplo de frase: "Vi que seu caso tem solução. Preparei um protocolo inicial para você. Clique no botão abaixo para falar com nossa equipe, receber o acesso ao nosso aplicativo e começarmos juntos."
+                  *   Convide-o para conversar com nossa equipe no WhatsApp para receber acesso ao protocolo personalizado.
+                  *   Exemplo de frase: "Vi que seu caso tem solução. Preparei um protocolo inicial para você. Clique no botão abaixo para que nossa especialista apresente os detalhes do seu protocolo, explique como funciona nosso acompanhamento e as condições para você começar."
 
               **Estilo de Escrita:**
               *   Seja confiante, use uma linguagem mais direta e menos emotiva. Use emojis sutis (🎯, 🚀, ✅).
@@ -206,8 +206,8 @@ export default async function handler(
 
               3.  **Meu Convite para Você:**
                   *   Faça uma chamada para ação pessoal e urgente.
-                  *   Convide-a para conversar com você (Simone) no WhatsApp para receber acesso ao protocolo personalizado através de um **aplicativo exclusivo**.
-                  *   Exemplo de frase: "Vi que seu caso tem solução. Preparei um protocolo inicial. Clique no botão abaixo para receber o acesso ao nosso aplicativo e começarmos juntas."
+                  *   Convide-a para conversar com você (Simone) no WhatsApp para receber acesso ao protocolo personalizado.
+                  *   Exemplo de frase: "Vi que seu caso tem solução. Preparei um protocolo inicial. Clique no botão abaixo para que eu possa te apresentar os detalhes do seu protocolo, explicar como funciona nosso acompanhamento e as condições para começarmos juntas."
 
               **Estilo de Escrita:**
               *   Seja acolhedora, confiante e use emojis sutis (🍵, ✨, ✅).
