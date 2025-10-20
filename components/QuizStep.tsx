@@ -66,7 +66,7 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
         >
             {option.image && (
                 <div className="w-20 h-20 flex-shrink-0 mr-4 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
-                    <img src={option.image} alt={option.label} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                    <img src={option.image} alt={option.label} className="w-full h-full object-contain" />
                 </div>
             )}
             <span className={`flex-1 text-base md:text-lg font-semibold ${isSelected ? 'text-emerald-900' : 'text-gray-800'}`}>{option.label}</span>
