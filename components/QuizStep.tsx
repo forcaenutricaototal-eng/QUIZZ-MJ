@@ -88,6 +88,11 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
         <div className="bg-white rounded-2xl p-5 md:p-8 shadow-lg">
             <div className="text-center mb-8">
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-800">{question.text}</h2>
+                {question.subtitle && (
+                    <p className="text-gray-600 text-lg mt-3 max-w-xl mx-auto">
+                        {question.subtitle}
+                    </p>
+                )}
                 {question.type === QuestionType.Multiple && (
                 <p className="text-gray-500 text-md mt-2">
                     (Selecione uma ou mais opções)

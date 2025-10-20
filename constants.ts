@@ -79,12 +79,13 @@ export const QUIZ_DATA: QuizQuestion[] = [
   },
   {
     id: 6,
-    text: 'O Monjaro farmacêutico trata o sintoma. O Monjaro Japonês trata a causa. Resultado real: saciedade natural, menos compulsão e menos inchaço. Está pronta para a mudança que realmente funciona?',
+    text: 'Você está a um passo da sua transformação.',
+    subtitle: 'O Monjaro de farmácia trata o sintoma. O Monjaro Japonês trata a causa raiz, resultando em saciedade natural, menos compulsão e menos inchaço. Você está pronta para a mudança que realmente funciona?',
     type: QuestionType.Single,
     options: [
-      { label: 'Sim, estou pronta para a mudança! ✅', value: 'sim_pronta' },
-      { label: 'Quero saber mais sobre a causa 🤔', value: 'saber_mais' },
-      { label: 'Ainda não tenho certeza 🤷‍♀️', value: 'nao_tenho_certeza' },
+      { label: 'Sim, estou pronta! ✅', value: 'sim_pronta' },
+      { label: 'Quero entender a causa.', value: 'saber_mais' },
+      { label: 'Ainda não tenho certeza.', value: 'nao_tenho_certeza' },
     ],
   },
 ];

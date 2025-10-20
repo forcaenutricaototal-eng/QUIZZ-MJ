@@ -20,6 +20,7 @@ export interface SocialProof {
 export interface QuizQuestion {
   id: number;
   text: string;
+  subtitle?: string;
   type: QuestionType;
   options: Option[];
   transitionMessage?: string;

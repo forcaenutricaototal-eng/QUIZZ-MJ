@@ -143,6 +143,7 @@ export default async function handler(
               **Análise do seu Perfil**
               **O Caminho para seu Resultado**
               **Meu Convite para Você**
+              **IMPORTANTE:** Os títulos das seções devem ser formatados EXATAMENTE como **Nome da Seção**, usando dois asteriscos. NÃO use '#', '##', '###' ou qualquer outro formato de título.
 
               **Regras para Cada Seção:**
 
@@ -191,6 +192,7 @@ export default async function handler(
               **Análise do seu Perfil**
               **O Caminho para seu Resultado**
               **Meu Convite para Você**
+              **IMPORTANTE:** Os títulos das seções devem ser formatados EXATAMENTE como **Nome da Seção**, usando dois asteriscos. NÃO use '#', '##', '###' ou qualquer outro formato de título.
 
               **Regras para Cada Seção:**
 
