@@ -15,7 +15,7 @@ export const QUIZ_DATA: QuizQuestion[] = [
     ],
     transitionMessage: 'Entendido. Esses são desafios comuns, mas acredite, existe um caminho natural para superá-los. Vamos continuar.',
      socialProof: {
-      name: 'Ana Fátima',
+      name: '👩‍🦰 Ana Fátima',
       result: '– 64 kg',
       description: '“Mesmo com hipotireoidismo, Ana Fátima eliminou 64 kg com o Método Japonês.”',
     },
@@ -46,7 +46,7 @@ export const QUIZ_DATA: QuizQuestion[] = [
       medicamentos: 'Entendo — muitas relatam resultados rápidos com remédio, mas sem estabilidade. Vamos ver o que seu corpo realmente precisa.',
     },
      socialProof: {
-      name: 'Bruna Brito',
+      name: '👱‍♀️ Bruna Brito',
       result: '– 13 kg',
       description: '“Bruna tentava de tudo — exercícios e dieta — sem resultado. Com o Monjaro Japonês, venceu o lipedema e eliminou 13 kg.”',
     },
@@ -62,7 +62,7 @@ export const QUIZ_DATA: QuizQuestion[] = [
       { label: 'Manter os resultados com equilíbrio e leveza ✨', value: 'manter_resultados' },
     ],
     socialProof: {
-      name: 'Laís Moreira',
+      name: '👩 Laís Moreira',
       result: '– 22 kg',
       description: '“Se eu consegui, vc tbm consegue 😉”',
     },
@@ -72,9 +72,9 @@ export const QUIZ_DATA: QuizQuestion[] = [
     text: 'Em que partes do seu corpo você deseja se concentrar?',
     type: QuestionType.Multiple,
     options: [
-      { label: 'Pernas', value: 'pernas', image: 'https://placehold.co/200x200/ecfdf5/065f46?text=Pernas&font=montserrat' },
-      { label: 'Barriga', value: 'barriga', image: 'https://placehold.co/200x200/ecfdf5/065f46?text=Barriga&font=montserrat' },
-      { label: 'Braços', value: 'bracos', image: 'https://placehold.co/200x200/ecfdf5/065f46?text=Bra%C3%A7os&font=montserrat' },
+      { label: '🦵 Pernas', value: 'pernas' },
+      { label: '🔥 Barriga', value: 'barriga' },
+      { label: '💪 Braços', value: 'bracos' },
     ],
   },
   {
