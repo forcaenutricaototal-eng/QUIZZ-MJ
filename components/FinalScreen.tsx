@@ -5,6 +5,16 @@ interface FinalScreenProps {
   name: string;
 }
 
+const WhatsAppIconSVG = () => (
+    <svg
+      fill="currentColor"
+      viewBox="0 0 24 24"
+      className="h-6 w-6 inline-block mr-2"
+    >
+      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.269.655 4.357 1.846 6.069l-1.29 4.723 4.793-1.261z"></path>
+    </svg>
+);
+
 const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
   const [analysis, setAnalysis] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -98,69 +108,26 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
         </div>
       )}
 
-      <div className="mt-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-emerald-800 mb-4">
-              Comece sua Transformação Agora!
-          </h2>
-          <p className="text-gray-700 leading-relaxed mb-6">
-            Você tem duas opções incríveis para dar o próximo passo. Escolha a que melhor se adapta ao seu momento:
-          </p>
+      <div className="mt-8 text-center p-6 bg-emerald-50 rounded-xl border-2 border-emerald-200">
+        <h2 className="text-2xl md:text-3xl font-bold text-emerald-800 mb-4">
+            Comece sua Transformação Agora!
+        </h2>
+        <p className="text-gray-700 leading-relaxed mb-6 max-w-xl mx-auto">
+          O próximo passo é simples. Para receber seu protocolo e tirar todas as suas dúvidas, clique no botão abaixo e fale com nossa especialista no WhatsApp.
+        </p>
 
-          <div className="my-8 p-6 bg-emerald-50 rounded-xl border-2 border-emerald-500 shadow-lg relative">
-            <span className="absolute -top-5 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-sm font-bold px-3 py-1 rounded-full">MAIS POPULAR</span>
-            <h3 className="text-xl font-bold text-emerald-900 mb-4">Acesso Imediato ao Protocolo</h3>
-            <p className="text-gray-600 mb-4">Ideal para quem quer começar agora, de forma independente.</p>
-            <ul className="space-y-3 text-left text-gray-700 mb-6">
-              <li className="flex items-start">
-                <span className="mr-3 text-lg">✅</span>
-                <span><strong>Protocolo do Monjaro Japonês</strong> (10 dias para destravar seus hormônios de saciedade)</span>
-              </li>
-              <li className="flex items-start">
-                <span className="mr-3 text-lg">📘</span>
-                <span>+ <strong>Livro com 20 receitas fitness exclusivas</strong></span>
-              </li>
-              <li className="flex items-start">
-                <span className="mr-3 text-lg">🚀</span>
-                <span><strong>Acesso imediato</strong> por apenas <strong>R$47</strong>!</span>
-              </li>
-            </ul>
-            <a
-              href="https://pay.kiwify.com.br/iDBgO2e"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mx-auto flex flex-col items-center justify-center w-48 h-48 bg-red-500 hover:bg-red-600 text-white font-bold p-5 rounded-full shadow-lg transition-transform transform hover:scale-105 text-center uppercase"
-            >
-              <span className="text-xs font-semibold leading-tight">Quero começar a aplicar o meu</span>
-              <span className="text-base font-extrabold leading-tight my-1">Monjaro Japonês</span>
-              <span className="text-xs font-semibold leading-tight">Agora</span>
-            </a>
-          </div>
-          
-          <div className="relative my-8">
-            <div className="absolute inset-0 flex items-center" aria-hidden="true">
-              <div className="w-full border-t border-gray-300" />
-            </div>
-            <div className="relative flex justify-center">
-              <span className="bg-white px-2 text-sm text-gray-500">OU</span>
-            </div>
-          </div>
-
-          <div className="p-6 bg-gray-50 rounded-xl border border-gray-200">
-              <h3 className="text-2xl font-bold text-emerald-900 mb-4">
-                Prefere<br />Acompanhamento<br />Premium?
-              </h3>
-              <p className="text-gray-700 leading-relaxed mb-6 text-center">
-                Se você precisa de um suporte mais próximo com nosso grupo fechado no WhatsApp e acesso ao aplicativo exclusivo, fale diretamente comigo.
-              </p>
-              <a
-                href="https://wa.me/5513996005779"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-green-500 hover:bg-green-600 text-white font-bold text-lg py-4 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 text-center"
-              >
-                Falar com<br />Especialista no<br />WhatsApp
-              </a>
-          </div>
+        <div className="mt-8">
+          <a
+            href="https://wa.me/5513996005779"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold text-lg py-4 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 text-center"
+          >
+            <WhatsAppIconSVG />
+            Falar com Especialista no WhatsApp
+          </a>
+          <p className="text-gray-500 text-sm mt-4">Clique para tirar suas dúvidas e começar!</p>
+        </div>
       </div>
     </div>
   );

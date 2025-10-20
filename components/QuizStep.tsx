@@ -17,26 +17,22 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
   const [showTransition, setShowTransition] = useState(false);
 
   useEffect(() => {
+    // Reset state when question changes
+    setSelected(initialSelection);
     setConditionalMessage(null);
     setShowTransition(false);
-  }, [question.id]);
+  }, [question.id, initialSelection]);
   
   const handleSelection = (value: string) => {
     let newSelected: string[];
-    const exclusiveOptions = ['nenhum', 'nenhuma'];
 
     if (question.type === QuestionType.Single) {
       newSelected = [value];
     } else {
-      if (exclusiveOptions.includes(value)) {
-        newSelected = selected.includes(value) ? [] : [value];
+      if (selected.includes(value)) {
+        newSelected = selected.filter((item) => item !== value);
       } else {
-        let currentSelection = selected.filter(item => !exclusiveOptions.includes(item));
-        if (currentSelection.includes(value)) {
-          newSelected = currentSelection.filter((item) => item !== value);
-        } else {
-          newSelected = [...currentSelection, value];
-        }
+        newSelected = [...selected, value];
       }
     }
     
@@ -55,35 +51,54 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
   const handleNextClick = () => {
     onNext(selected);
   };
-
+  
   const renderOption = (option: Option) => {
     const isSelected = selected.includes(option.value);
-    const commonClasses = "p-3 rounded-full text-center w-full transition-all duration-200 shadow-md cursor-pointer text-base md:text-lg";
-    const selectedClasses = "bg-red-500 text-white font-bold";
-    const unselectedClasses = "bg-yellow-400 text-black font-bold hover:bg-red-500 hover:text-white";
-
+    
     return (
-        <div key={option.value} onClick={() => handleSelection(option.value)}
-             className={`${commonClasses} ${isSelected ? selectedClasses : unselectedClasses}`}>
-          {option.label}
+        <div
+            key={option.value}
+            onClick={() => handleSelection(option.value)}
+            className={`flex items-center p-3 md:p-4 rounded-xl cursor-pointer transition-all duration-300 border-2 shadow-sm ${
+                isSelected 
+                ? 'bg-emerald-50 border-emerald-400 ring-2 ring-emerald-200' 
+                : 'bg-white hover:bg-gray-50 border-gray-200'
+            }`}
+        >
+            {option.image && (
+                <div className="w-16 h-16 md:w-20 md:h-20 flex-shrink-0 mr-4 rounded-md bg-cover bg-center" style={{backgroundImage: `url(${option.image})`}}>
+                </div>
+            )}
+            <span className={`flex-1 text-base md:text-lg font-semibold ${isSelected ? 'text-emerald-900' : 'text-gray-800'}`}>{option.label}</span>
+            <div className={`w-6 h-6 md:w-7 md:h-7 rounded-md border-2 flex-shrink-0 flex items-center justify-center ml-4 ${
+                isSelected ? 'bg-emerald-500 border-emerald-500' : 'border-gray-400 bg-white'
+            }`}>
+                {isSelected && (
+                    <svg className="w-4 h-4 md:w-5 md:h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                )}
+            </div>
         </div>
     );
   };
 
   return (
-    <div className="p-6 md:p-8 w-full max-w-3xl mx-auto animate-fade-in">
-      <div className="text-center mb-8">
-        <h2 className={`text-2xl md:text-3xl font-bold ${isLastStep ? 'text-emerald-400' : 'text-white'}`}>{question.text}</h2>
-        {question.type === QuestionType.Multiple && (
-          <p className="text-gray-400 text-md mt-2">
-            (Selecione uma ou mais opções)
-          </p>
-        )}
-      </div>
-      
-      <div className="space-y-4 mb-8">
-        {question.options.map(renderOption)}
-      </div>
+    <div className="p-4 md:p-6 w-full max-w-3xl mx-auto animate-fade-in">
+        <div className="bg-slate-50 rounded-2xl p-5 md:p-8 shadow-lg">
+            <div className="text-center mb-8">
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-800">{question.text}</h2>
+                {question.type === QuestionType.Multiple && (
+                <p className="text-gray-500 text-md mt-2">
+                    (Selecione uma ou mais opções)
+                </p>
+                )}
+            </div>
+            
+            <div className="space-y-4 mb-8">
+                {question.options.map(renderOption)}
+            </div>
+        </div>
 
       {conditionalMessage && !showTransition && (
         <div className="my-6 p-4 bg-white border-l-4 border-blue-500 text-gray-800 rounded-lg shadow-md animate-fade-in">
@@ -101,22 +116,18 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
         <BeforeAfterCard proof={question.socialProof} />
       )}
 
-      <div className="text-center mt-10 flex flex-col sm:flex-row-reverse items-center justify-center gap-4">
+      <div className="text-center mt-8 flex flex-col sm:flex-row-reverse items-center justify-center gap-4">
         <button
           onClick={handleNextClick}
           disabled={selected.length === 0}
-          className={`font-bold py-3 px-8 rounded-lg text-base md:text-lg transition-colors shadow-md w-full sm:w-auto ${
-            showTransition
-              ? 'bg-slate-400 text-white'
-              : 'bg-green-500 hover:bg-green-600 text-white disabled:bg-slate-400 disabled:cursor-not-allowed'
-          }`}
+          className="font-bold py-3 px-8 rounded-lg text-base md:text-lg transition-all duration-300 shadow-md w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
         >
-          {isLastStep ? 'Ver resultado' : 'Continuar'}
+          {isLastStep ? 'Ver resultado' : 'Avançar'}
         </button>
-        {!isFirstStep && !showTransition && (
+        {!isFirstStep && (
             <button
                 onClick={onBack}
-                className="bg-white text-black font-bold py-3 px-8 rounded-lg text-base md:text-lg hover:bg-gray-200 transition-colors w-full sm:w-auto"
+                className="font-bold py-3 px-8 rounded-lg text-base md:text-lg transition-colors w-full sm:w-auto bg-white text-gray-700 border border-gray-300 hover:bg-gray-100"
             >
                 Voltar
             </button>

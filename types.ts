@@ -6,6 +6,7 @@ export enum QuestionType {
 export interface Option {
   label: string;
   value: string;
+  image?: string;
 }
 
 export interface SocialProof {

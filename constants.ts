@@ -69,6 +69,16 @@ export const QUIZ_DATA: QuizQuestion[] = [
   },
   {
     id: 5,
+    text: 'Em que partes do seu corpo você deseja se concentrar?',
+    type: QuestionType.Multiple,
+    options: [
+      { label: 'Pernas', value: 'pernas', image: 'https://i.imgur.com/g82o8iT.png' },
+      { label: 'Barriga', value: 'barriga', image: 'https://i.imgur.com/R1e0a29.png' },
+      { label: 'Braços', value: 'bracos', image: 'https://i.imgur.com/kR53SUD.png' },
+    ],
+  },
+  {
+    id: 6,
     text: 'O Monjaro farmacêutico trata o sintoma. O Monjaro Japonês trata a causa. Resultado real: saciedade natural, menos compulsão e menos inchaço. Está pronta para a mudança que realmente funciona?',
     type: QuestionType.Single,
     options: [
