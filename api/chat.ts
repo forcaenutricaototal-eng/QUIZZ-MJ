@@ -63,8 +63,8 @@ Não revele que você é uma IA, a menos que seja diretamente perguntada.`;
     
     let errorMessage = 'Ocorreu um erro desconhecido.';
     if (e.message) {
-        if (e.message.includes('API key not valid')) {
-            errorMessage = 'A chave de API fornecida parece ser inválida. Verifique a chave nas configurações do Vercel e faça um novo deploy.';
+        if (e.message.includes('did not match the expected pattern') || e.message.includes('API key not valid')) {
+            errorMessage = 'A chave de API fornecida parece ser inválida ou está com o formato incorreto. Por favor, verifique se a variável de ambiente API_KEY está configurada corretamente no Vercel.';
         } else if (e.message.includes('permission denied')) {
             errorMessage = 'Permissão negada pela API do Google. Verifique se a API do Gemini está ativada no seu projeto Google Cloud e se a chave tem as permissões corretas.';
         } else if (e.message.includes('timed out')) {

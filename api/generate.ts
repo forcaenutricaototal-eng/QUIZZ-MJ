@@ -100,8 +100,8 @@ export default async function handler(
             const answerValues = answers[question.id] || [];
             if (answerValues.length === 0) return null;
 
-            const answerLabels = answerValues.map(value =>
-            question.options.find(opt => opt.value === value)?.label || value
+            const answerLabels = answerValues.map((value: string) =>
+                question.options.find(opt => opt.value === value)?.label || value
             ).join(', ');
 
             return `- Pergunta "${question.text}": Resposta: "${answerLabels}"`;
@@ -182,9 +182,17 @@ export default async function handler(
         if (e.cause) console.error("Error Cause:", e.cause);
         console.error("--- END OF ERROR ---");
         
-        let errorMessage = 'A server error has occurred';
+        let errorMessage = 'Ocorreu um erro desconhecido no servidor.';
         if (e.message) {
-            errorMessage += `\n${e.message}`;
+            if (e.message.includes('did not match the expected pattern') || e.message.includes('API key not valid')) {
+                errorMessage = "A chave de API fornecida parece ser inválida ou está com o formato incorreto. Por favor, verifique se a variável de ambiente API_KEY está configurada corretamente no Vercel.";
+            } else if (e.message.includes('permission denied')) {
+                errorMessage = 'Permissão negada pela API do Google. Verifique se a API do Gemini está ativada no seu projeto Google Cloud e se a chave tem as permissões corretas.';
+            } else if (e.message.includes('timed out')) {
+                errorMessage = 'A solicitação para a IA demorou muito para responder. Tente novamente.';
+            } else {
+                errorMessage = e.message;
+            }
         }
         return response.status(500).json({ error: errorMessage });
     }
