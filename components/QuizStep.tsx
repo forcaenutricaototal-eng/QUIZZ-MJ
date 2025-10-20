@@ -59,22 +59,23 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
         <div
             key={option.value}
             onClick={() => handleSelection(option.value)}
-            className={`flex items-center p-3 md:p-4 rounded-xl cursor-pointer transition-all duration-300 border-2 shadow-sm ${
+            className={`flex items-center p-3 md:p-4 rounded-xl cursor-pointer transition-all duration-300 border-2 ${
                 isSelected 
-                ? 'bg-emerald-50 border-emerald-400 ring-2 ring-emerald-200' 
-                : 'bg-white hover:bg-gray-50 border-gray-200'
+                ? 'bg-green-50 border-green-500' 
+                : 'bg-white hover:bg-gray-50 border-gray-300'
             }`}
         >
             {option.image && (
-                <div className="w-16 h-16 md:w-20 md:h-20 flex-shrink-0 mr-4 rounded-md bg-cover bg-center" style={{backgroundImage: `url(${option.image})`}}>
+                <div className="w-16 h-16 flex-shrink-0 mr-4 rounded-md overflow-hidden bg-black">
+                    <img src={option.image} alt={option.label} className="w-full h-full object-cover" />
                 </div>
             )}
-            <span className={`flex-1 text-base md:text-lg font-semibold ${isSelected ? 'text-emerald-900' : 'text-gray-800'}`}>{option.label}</span>
-            <div className={`w-6 h-6 md:w-7 md:h-7 rounded-md border-2 flex-shrink-0 flex items-center justify-center ml-4 ${
-                isSelected ? 'bg-emerald-500 border-emerald-500' : 'border-gray-400 bg-white'
+            <span className={`flex-1 text-base md:text-lg font-semibold ${isSelected ? 'text-green-900' : 'text-gray-800'}`}>{option.label}</span>
+            <div className={`w-6 h-6 rounded-md border-2 flex-shrink-0 flex items-center justify-center ml-4 ${
+                isSelected ? 'bg-green-500 border-green-500' : 'border-gray-400 bg-white'
             }`}>
                 {isSelected && (
-                    <svg className="w-4 h-4 md:w-5 md:h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                 )}
@@ -84,12 +85,12 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
   };
 
   return (
-    <div className="p-4 md:p-6 w-full max-w-3xl mx-auto animate-fade-in">
-        <div className="bg-slate-50 rounded-2xl p-5 md:p-8 shadow-lg">
+    <div className="p-0 md:p-6 w-full max-w-3xl mx-auto animate-fade-in">
+        <div className="bg-gray-900 border border-gray-700 rounded-2xl p-5 md:p-8 shadow-lg">
             <div className="text-center mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-800">{question.text}</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-white">{question.text}</h2>
                 {question.type === QuestionType.Multiple && (
-                <p className="text-gray-500 text-md mt-2">
+                <p className="text-gray-400 text-md mt-2">
                     (Selecione uma ou mais opções)
                 </p>
                 )}
@@ -101,13 +102,13 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
         </div>
 
       {conditionalMessage && !showTransition && (
-        <div className="my-6 p-4 bg-white border-l-4 border-blue-500 text-gray-800 rounded-lg shadow-md animate-fade-in">
+        <div className="my-6 p-4 bg-gray-800 border-l-4 border-blue-500 text-gray-200 rounded-lg shadow-md animate-fade-in">
           <p>{conditionalMessage}</p>
         </div>
       )}
 
       {showTransition && question.transitionMessage && (
-        <div className="my-6 p-4 bg-white border-l-4 border-emerald-500 text-gray-800 rounded-lg shadow-md animate-fade-in">
+        <div className="my-6 p-4 bg-gray-800 border-l-4 border-green-500 text-gray-200 rounded-lg shadow-md animate-fade-in">
           <p className="font-semibold">{question.transitionMessage}</p>
         </div>
       )}
@@ -120,14 +121,14 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
         <button
           onClick={handleNextClick}
           disabled={selected.length === 0}
-          className="font-bold py-3 px-8 rounded-lg text-base md:text-lg transition-all duration-300 shadow-md w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
+          className="font-bold py-3 px-8 rounded-lg text-base md:text-lg transition-all duration-300 shadow-lg w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed"
         >
           {isLastStep ? 'Ver resultado' : 'Avançar'}
         </button>
         {!isFirstStep && (
             <button
                 onClick={onBack}
-                className="font-bold py-3 px-8 rounded-lg text-base md:text-lg transition-colors w-full sm:w-auto bg-white text-gray-700 border border-gray-300 hover:bg-gray-100"
+                className="font-bold py-3 px-8 rounded-lg text-base md:text-lg transition-colors w-full sm:w-auto bg-transparent text-gray-300 border border-gray-600 hover:bg-gray-800"
             >
                 Voltar
             </button>

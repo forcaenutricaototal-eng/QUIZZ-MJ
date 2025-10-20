@@ -9,11 +9,11 @@ const BeforeAfterCard: React.FC<BeforeAfterCardProps> = ({ proof }) => {
   const formattedTime = `12:05`;
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-3 mt-8 w-full max-w-sm mx-auto animate-fade-in text-gray-900">
+    <div className="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-3 mt-8 w-full max-w-sm mx-auto animate-fade-in text-gray-200">
       
       <div className="flex justify-between items-center mb-2">
-        <p className="font-bold text-lg" style={{ color: '#d35400' }}>{proof.name}</p>
-        <p className="font-bold text-emerald-600 bg-emerald-100 px-2 py-1 rounded-md text-sm">{proof.result}</p>
+        <p className="font-bold text-lg text-emerald-400">{proof.name}</p>
+        <p className="font-bold text-emerald-900 bg-emerald-200 px-2 py-1 rounded-md text-sm">{proof.result}</p>
       </div>
 
       {(proof.beforeImage || proof.afterImage) && (
