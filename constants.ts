@@ -72,9 +72,9 @@ export const QUIZ_DATA: QuizQuestion[] = [
     text: 'Em que partes do seu corpo você deseja se concentrar?',
     type: QuestionType.Multiple,
     options: [
-      { label: 'Pernas', value: 'pernas', image: 'https://i.imgur.com/g82o8iT.png' },
-      { label: 'Barriga', value: 'barriga', image: 'https://i.imgur.com/R1e0a29.png' },
-      { label: 'Braços', value: 'bracos', image: 'https://i.imgur.com/kR53SUD.png' },
+      { label: 'Pernas', value: 'pernas', image: 'https://i.postimg.cc/136kM3f9/pernas.png' },
+      { label: 'Barriga', value: 'barriga', image: 'https://i.postimg.cc/nLp267zS/barriga.png' },
+      { label: 'Braços', value: 'bracos', image: 'https://i.postimg.cc/0j7YgPjW/bracos.png' },
     ],
   },
   {
