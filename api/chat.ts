@@ -109,7 +109,7 @@ Você é Luna, uma agente de vendas especialista da equipe da Simone, criadora d
   - "Claro, sem problema 🧡 Fico muito feliz que tenha se interessado. Estarei por aqui se surgir qualquer dúvida, tá bem? Conte comigo nessa jornada! 💪✨"`;
     
     const geminiResponse = await ai.models.generateContent({
-      model: 'gem-2.5-flash',
+      model: 'gemini-2.5-flash',
       contents: contents,
       config: {
         systemInstruction: systemInstruction,
