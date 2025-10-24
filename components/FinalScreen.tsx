@@ -49,7 +49,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
         const analysisText = data.analysis;
         const assistantIntro = `Acima está sua análise personalizada, ${name}.
 
-Eu sou a Lua, sua assistente. Estou aqui para tirar qualquer dúvida que você tenha antes de falar com a nossa especialista. O que você gostaria de saber?`;
+Eu sou a Luna, sua assistente. Estou aqui para tirar qualquer dúvida que você tenha antes de falar com a nossa especialista. O que você gostaria de saber?`;
 
         setMessages([
           { role: 'model', text: analysisText },
@@ -189,7 +189,7 @@ Eu sou a Lua, sua assistente. Estou aqui para tirar qualquer dúvida que você t
   return (
      <div className="flex flex-col w-full max-w-3xl h-[85vh] max-h-[800px] bg-white rounded-2xl shadow-xl animate-fade-in border border-gray-200">
         <div className="p-4 border-b border-gray-200 text-center flex-shrink-0">
-            <h2 className="text-xl font-bold text-emerald-700">Fale com a Lua, sua assistente IA ✨</h2>
+            <h2 className="text-xl font-bold text-emerald-700">Fale com a Luna, sua assistente IA ✨</h2>
             <p className="text-sm text-gray-500">Sua análise está pronta! Tire suas dúvidas.</p>
         </div>
         
