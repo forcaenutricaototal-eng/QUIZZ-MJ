@@ -185,12 +185,12 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
   }
 
   return (
-     <div className="flex flex-col w-full max-w-3xl h-[80vh] bg-white rounded-2xl shadow-xl animate-fade-in border border-gray-200">
-      <div ref={chatContainerRef} className="flex-1 p-3 sm:p-4 space-y-4 overflow-y-auto">
+     <div className="flex flex-col w-full max-w-3xl h-[85vh] sm:h-[80vh] max-h-[700px] bg-white rounded-2xl shadow-xl animate-fade-in border border-gray-200">
+      <div ref={chatContainerRef} className="flex-1 p-3 sm:p-4 space-y-3 overflow-y-auto">
         {messages.map((msg, index) => (
           <div key={index} className={`flex items-end gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             {msg.role === 'model' && (
-                <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 text-xl">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 text-lg sm:text-xl">
                     🌙
                 </div>
             )}
@@ -209,7 +209,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
         ))}
         {isChatLoading && (
             <div className="flex items-end gap-2.5 justify-start">
-                <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 text-xl">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 text-lg sm:text-xl">
                     🌙
                 </div>
                 <div className="max-w-xs px-4 py-3 rounded-2xl bg-gray-100 text-gray-800">
@@ -224,7 +224,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
         {chatError && <p className="text-red-500 text-center text-sm py-2">{chatError}</p>}
       </div>
       
-      <div className="p-2 sm:p-3 border-t border-gray-200 flex-shrink-0 bg-white">
+      <div className="p-2 sm:p-3 border-t border-gray-200 flex-shrink-0 bg-white rounded-b-2xl">
         <form onSubmit={handleSendMessage} className="flex items-center gap-2">
           <input
             type="text"

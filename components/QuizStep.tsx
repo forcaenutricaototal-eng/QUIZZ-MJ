@@ -58,20 +58,20 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
         <div
             key={option.value}
             onClick={() => handleSelection(option.value)}
-            className={`flex items-center p-3 rounded-lg cursor-pointer transition-all duration-200 border-2 shadow-sm ${
+            className={`flex items-center p-3 sm:p-4 rounded-xl cursor-pointer transition-all duration-300 border-2 shadow-sm ${
                 isSelected 
-                ? 'border-emerald-500 bg-emerald-50 shadow-md' 
-                : 'bg-white border-gray-300 hover:border-emerald-400 hover:bg-emerald-50/50'
+                ? 'border-emerald-500 bg-emerald-100 shadow-lg scale-[1.02]' 
+                : 'bg-white border-gray-200 hover:border-emerald-400 hover:bg-emerald-50/75 hover:shadow-md'
             }`}
         >
             {option.image && (
-                <div className="w-20 h-20 flex-shrink-0 mr-3 rounded-md overflow-hidden bg-gray-100 flex items-center justify-center">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 mr-4 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
                     <img src={option.image} alt={option.label} className="w-full h-full object-cover" />
                 </div>
             )}
-            <span className={`flex-1 text-base font-semibold ${isSelected ? 'text-emerald-900' : 'text-gray-800'}`}>{option.label}</span>
+            <span className={`flex-1 text-sm sm:text-base font-medium ${isSelected ? 'text-emerald-900 font-bold' : 'text-gray-700'}`}>{option.label}</span>
             <div className={`w-6 h-6 rounded-md border-2 flex-shrink-0 flex items-center justify-center ml-4 transition-colors ${
-                isSelected ? 'bg-emerald-500 border-emerald-500' : 'border-gray-400 bg-white'
+                isSelected ? 'bg-emerald-500 border-emerald-600' : 'border-gray-300 bg-gray-50'
             }`}>
                 {isSelected && (
                     <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
@@ -84,12 +84,12 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
   };
 
   return (
-    <div className="p-0 sm:p-2 w-full max-w-3xl mx-auto animate-fade-in">
-        <div className="bg-white rounded-2xl p-4 md:p-5 shadow-lg">
-            <div className="text-center mb-4">
+    <div className="p-0 sm:p-1 w-full max-w-3xl mx-auto animate-fade-in">
+        <div className="bg-white rounded-2xl p-3 sm:p-5 shadow-lg">
+            <div className="text-center mb-5">
                 <h2 className="text-xl md:text-2xl font-bold text-gray-800">{question.text}</h2>
                 {question.subtitle && (
-                    <p className="text-gray-600 text-base mt-2 max-w-xl mx-auto">
+                    <p className="text-gray-600 text-sm sm:text-base mt-2 max-w-xl mx-auto">
                         {question.subtitle}
                     </p>
                 )}
@@ -100,7 +100,7 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
                 )}
             </div>
             
-            <div className="space-y-2 mb-5">
+            <div className="space-y-3 mb-4">
                 {question.options.map(renderOption)}
             </div>
         </div>
@@ -121,7 +121,7 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
         <BeforeAfterCard proof={question.socialProof} />
       )}
 
-      <div className="text-center mt-4 flex flex-col sm:flex-row-reverse items-center justify-center gap-3">
+      <div className="text-center mt-5 flex flex-col sm:flex-row-reverse items-center justify-center gap-3">
         <button
           onClick={handleNextClick}
           disabled={selected.length === 0}

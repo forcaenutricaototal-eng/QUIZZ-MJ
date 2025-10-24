@@ -15,14 +15,14 @@ const NameStep: React.FC<NameStepProps> = ({ onSubmit }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6 w-full max-w-lg mx-auto animate-fade-in text-center">
-      <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-3">
+    <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-5 w-full max-w-md mx-auto animate-fade-in text-center">
+      <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">
         Antes de começarmos...
       </h2>
-      <p className="text-gray-600 mb-4">
+      <p className="text-gray-600 mb-5 text-sm sm:text-base">
         Para personalizar sua análise, qual é o seu primeiro nome?
       </p>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3 items-center">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 items-center">
         <input
           type="text"
           value={name}
@@ -35,7 +35,7 @@ const NameStep: React.FC<NameStepProps> = ({ onSubmit }) => {
         <button
           type="submit"
           disabled={!name.trim()}
-          className="font-bold py-2.5 px-8 rounded-lg text-base sm:text-lg transition-colors shadow-md w-full max-w-sm bg-emerald-500 hover:bg-emerald-600 text-white disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
+          className="font-bold py-3 px-8 rounded-lg text-base sm:text-lg transition-colors shadow-md w-full max-w-sm bg-emerald-500 hover:bg-emerald-600 text-white disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
         >
           Começar o Quiz
         </button>
