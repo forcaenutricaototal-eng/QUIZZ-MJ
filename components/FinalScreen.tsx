@@ -185,17 +185,17 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
   }
 
   return (
-     <div className="flex flex-col w-full max-w-3xl h-[85vh] max-h-[600px] sm:h-[80vh] sm:max-h-[700px] bg-white rounded-2xl shadow-xl animate-fade-in border border-gray-200">
-      <div ref={chatContainerRef} className="flex-1 p-4 md:p-6 space-y-4 overflow-y-auto">
+     <div className="flex flex-col w-full max-w-3xl h-[80vh] bg-white rounded-2xl shadow-xl animate-fade-in border border-gray-200">
+      <div ref={chatContainerRef} className="flex-1 p-3 sm:p-4 space-y-4 overflow-y-auto">
         {messages.map((msg, index) => (
-          <div key={index} className={`flex items-end gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+          <div key={index} className={`flex items-end gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             {msg.role === 'model' && (
                 <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 text-xl">
                     🌙
                 </div>
             )}
             <div
-              className={`max-w-md lg:max-w-lg px-3 py-2 sm:px-4 sm:py-3 rounded-2xl ${
+              className={`max-w-md lg:max-w-lg px-3 py-2 rounded-2xl ${
                 msg.role === 'user' 
                 ? 'bg-emerald-500 text-white rounded-br-lg' 
                 : 'bg-gray-100 text-gray-800 rounded-bl-lg'
@@ -203,7 +203,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
             >
               {index === 0 && msg.role === 'model' 
                 ? <div className="max-w-none">{renderFormattedText(msg.text)}</div> 
-                : <p className="whitespace-pre-wrap">{renderMessageWithLinks(msg.text)}</p>}
+                : <p className="whitespace-pre-wrap text-sm sm:text-base">{renderMessageWithLinks(msg.text)}</p>}
             </div>
           </div>
         ))}
@@ -224,7 +224,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
         {chatError && <p className="text-red-500 text-center text-sm py-2">{chatError}</p>}
       </div>
       
-      <div className="p-3 sm:p-4 border-t border-gray-200 flex-shrink-0 bg-white">
+      <div className="p-2 sm:p-3 border-t border-gray-200 flex-shrink-0 bg-white">
         <form onSubmit={handleSendMessage} className="flex items-center gap-2">
           <input
             type="text"
@@ -232,7 +232,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
             onChange={(e) => setInput(e.target.value)}
             placeholder="Digite sua dúvida aqui..."
             disabled={isChatLoading}
-            className="flex-1 bg-gray-100 text-gray-800 border border-gray-300 rounded-full py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="flex-1 bg-gray-100 text-gray-800 border border-gray-300 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-emerald-500"
             aria-label="Digite sua mensagem"
           />
           <button

@@ -36,12 +36,12 @@ const App: React.FC = () => {
   const progressPercentage = isQuizFinished ? 100 : (currentStep / totalSteps) * 100;
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-800 flex flex-col items-center justify-center p-4">
-      <header className="w-full max-w-3xl mx-auto mb-2 sm:mb-4 text-center">
-        <h1 className="text-2xl md:text-4xl font-bold text-emerald-700">
+    <div className="min-h-screen bg-gray-100 text-gray-800 flex flex-col items-center justify-center p-2 sm:p-4">
+      <header className="w-full max-w-3xl mx-auto mb-3 text-center">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-emerald-700">
           🍵 Descubra por que o Monjaro Japonês funciona para você!
         </h1>
-        <p className="text-md md:text-lg text-gray-600 mt-2">
+        <p className="text-sm sm:text-base text-gray-600 mt-2">
           Em poucos minutos você vai identificar o bloqueio que trava seu emagrecimento 🎯 — e ver como agir de forma natural e definitiva.
         </p>
       </header>
@@ -52,14 +52,14 @@ const App: React.FC = () => {
         ) : (
           <>
             {!isQuizFinished && (
-              <div className="w-full max-w-3xl mx-auto mb-2 sm:mb-4">
+              <div className="w-full max-w-3xl mx-auto mb-3">
                 <div className="bg-gray-200 rounded-full h-2.5">
                   <div
                     className="bg-emerald-500 h-2.5 rounded-full transition-all duration-500"
                     style={{ width: `${progressPercentage}%` }}
                   ></div>
                 </div>
-                <p className="text-right text-sm text-gray-500 mt-1">Pergunta {currentStep + 1} de {totalSteps}</p>
+                <p className="text-right text-xs sm:text-sm text-gray-500 mt-1">Pergunta {currentStep + 1} de {totalSteps}</p>
               </div>
             )}
 
@@ -80,7 +80,7 @@ const App: React.FC = () => {
         )}
       </main>
 
-      <footer className="w-full text-center p-4 text-xs text-gray-500">
+      <footer className="w-full text-center p-2 sm:p-4 text-xs text-gray-500">
         <p>&copy; {new Date().getFullYear()} Quiz Monjaro Japonês. Todos os direitos reservados.</p>
       </footer>
     </div>
