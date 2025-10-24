@@ -11,17 +11,6 @@ interface Message {
   text: string;
 }
 
-const WhatsAppIconSVG = () => (
-    <svg
-      fill="currentColor"
-      viewBox="0 0 24 24"
-      className="h-6 w-6 inline-block mr-2"
-    >
-      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.269.655 4.357 1.846 6.069l-1.29 4.723 4.793-1.261z"></path>
-    </svg>
-);
-
-
 const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
   const [isAnalysisLoading, setAnalysisLoading] = useState(true);
   const [analysisError, setAnalysisError] = useState<string | null>(null);
@@ -179,7 +168,7 @@ Eu sou a Thais, sua assistente. Estou aqui para tirar qualquer dúvida que você
      <div className="flex flex-col w-full max-w-3xl h-[85vh] max-h-[800px] bg-white rounded-2xl shadow-xl animate-fade-in border border-gray-200">
         <div className="p-4 border-b border-gray-200 text-center flex-shrink-0">
             <h2 className="text-xl font-bold text-emerald-700">Fale com a Thais, sua assistente IA 🤖</h2>
-            <p className="text-sm text-gray-500">Sua análise está pronta! Tire suas dúvidas antes de ir para o WhatsApp.</p>
+            <p className="text-sm text-gray-500">Sua análise está pronta! Tire suas dúvidas.</p>
         </div>
         
       <div ref={chatContainerRef} className="flex-1 p-4 md:p-6 space-y-4 overflow-y-auto">
@@ -221,15 +210,6 @@ Eu sou a Thais, sua assistente. Estou aqui para tirar qualquer dúvida que você
       </div>
       
       <div className="p-4 border-t border-gray-200 flex-shrink-0 bg-white">
-        <a
-            href="https://wa.me/5513996005779"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mb-3 w-full inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold text-base py-3 px-6 rounded-full shadow-lg transition-transform transform hover:scale-105"
-        >
-            <WhatsAppIconSVG />
-            Liberar meu Protocolo com a Simone
-        </a>
         <form onSubmit={handleSendMessage} className="flex items-center gap-2">
           <input
             type="text"
