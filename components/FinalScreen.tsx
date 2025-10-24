@@ -133,6 +133,28 @@ Eu sou a Thais, sua assistente. Estou aqui para tirar qualquer dúvida que você
     });
   };
 
+  const renderMessageWithLinks = (text: string) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = text.split(urlRegex);
+
+    return parts.map((part, index) => {
+      if (part.match(urlRegex)) {
+        return (
+          <a
+            key={index}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-emerald-600 hover:underline font-semibold break-all"
+          >
+            {part}
+          </a>
+        );
+      }
+      return part;
+    });
+  };
+
   if (isAnalysisLoading) {
     return (
       <div className="text-center p-10 animate-fade-in w-full max-w-lg mx-auto bg-white rounded-2xl shadow-xl text-gray-800">
@@ -188,7 +210,7 @@ Eu sou a Thais, sua assistente. Estou aqui para tirar qualquer dúvida que você
             >
               {index === 0 && msg.role === 'model' 
                 ? <div className="max-w-none">{renderFormattedText(msg.text)}</div> 
-                : <p className="whitespace-pre-wrap">{msg.text}</p>}
+                : <p className="whitespace-pre-wrap">{renderMessageWithLinks(msg.text)}</p>}
             </div>
           </div>
         ))}

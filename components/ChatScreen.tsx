@@ -77,6 +77,28 @@ const ChatScreen: React.FC = () => {
     }
   };
 
+  const renderMessageWithLinks = (text: string) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = text.split(urlRegex);
+
+    return parts.map((part, index) => {
+      if (part.match(urlRegex)) {
+        return (
+          <a
+            key={index}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-emerald-400 hover:underline font-semibold break-all"
+          >
+            {part}
+          </a>
+        );
+      }
+      return part;
+    });
+  };
+
   return (
     <div className="flex flex-col w-full max-w-2xl h-[80vh] bg-gray-900 rounded-2xl shadow-xl animate-fade-in border border-gray-700">
         <div className="p-4 border-b border-gray-700 text-center">
@@ -92,7 +114,7 @@ const ChatScreen: React.FC = () => {
                 msg.role === 'user' ? 'bg-emerald-600 text-white' : 'bg-gray-700 text-gray-200'
               }`}
             >
-              <p className="whitespace-pre-wrap">{msg.text}</p>
+              <p className="whitespace-pre-wrap">{renderMessageWithLinks(msg.text)}</p>
             </div>
           </div>
         ))}
