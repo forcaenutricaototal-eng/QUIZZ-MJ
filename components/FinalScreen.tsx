@@ -49,7 +49,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
         const analysisText = data.analysis;
         const assistantIntro = `Acima está sua análise personalizada, ${name}.
 
-Eu sou a Thais, sua assistente. Estou aqui para tirar qualquer dúvida que você tenha antes de falar com a nossa especialista. O que você gostaria de saber?`;
+Eu sou a Lua, sua assistente. Estou aqui para tirar qualquer dúvida que você tenha antes de falar com a nossa especialista. O que você gostaria de saber?`;
 
         setMessages([
           { role: 'model', text: analysisText },
@@ -189,7 +189,7 @@ Eu sou a Thais, sua assistente. Estou aqui para tirar qualquer dúvida que você
   return (
      <div className="flex flex-col w-full max-w-3xl h-[85vh] max-h-[800px] bg-white rounded-2xl shadow-xl animate-fade-in border border-gray-200">
         <div className="p-4 border-b border-gray-200 text-center flex-shrink-0">
-            <h2 className="text-xl font-bold text-emerald-700">Fale com a Thais, sua assistente IA 🤖</h2>
+            <h2 className="text-xl font-bold text-emerald-700">Fale com a Lua, sua assistente IA ✨</h2>
             <p className="text-sm text-gray-500">Sua análise está pronta! Tire suas dúvidas.</p>
         </div>
         
@@ -197,8 +197,8 @@ Eu sou a Thais, sua assistente. Estou aqui para tirar qualquer dúvida que você
         {messages.map((msg, index) => (
           <div key={index} className={`flex items-end gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             {msg.role === 'model' && (
-                <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0 font-bold text-sm">
-                    T
+                <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 text-xl">
+                    🌙
                 </div>
             )}
             <div
@@ -216,8 +216,8 @@ Eu sou a Thais, sua assistente. Estou aqui para tirar qualquer dúvida que você
         ))}
         {isChatLoading && (
             <div className="flex items-end gap-2.5 justify-start">
-                <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0 font-bold text-sm">
-                    T
+                <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 text-xl">
+                    🌙
                 </div>
                 <div className="max-w-xs px-4 py-3 rounded-2xl bg-gray-100 text-gray-800">
                     <div className="flex items-center space-x-1">

@@ -8,7 +8,7 @@ interface Message {
 
 const ChatScreen: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
-      { role: 'model', text: 'Seu resultado está pronto! 🎉 Eu sou a Thais, sua assistente. Estou aqui para tirar qualquer dúvida que você tenha antes de falar com a nossa especialista. O que você gostaria de saber?' },
+      { role: 'model', text: 'Seu resultado está pronto! 🎉 Eu sou a Lua, sua assistente. Estou aqui para tirar qualquer dúvida que você tenha antes de falar com a nossa especialista. O que você gostaria de saber?' },
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -102,7 +102,7 @@ const ChatScreen: React.FC = () => {
   return (
     <div className="flex flex-col w-full max-w-2xl h-[80vh] bg-gray-900 rounded-2xl shadow-xl animate-fade-in border border-gray-700">
         <div className="p-4 border-b border-gray-700 text-center">
-            <h2 className="text-xl font-bold text-emerald-400">Fale com a Thais, sua assistente IA 🤖</h2>
+            <h2 className="text-xl font-bold text-emerald-400">Fale com a Lua, sua assistente IA ✨</h2>
             <p className="text-sm text-gray-400">Tire suas dúvidas!</p>
         </div>
         
@@ -121,7 +121,7 @@ const ChatScreen: React.FC = () => {
         {isLoading && (
             <div className="flex justify-start">
                 <div className="max-w-xs px-4 py-2 rounded-2xl bg-gray-700 text-gray-200">
-                    <p>Thais está digitando...</p>
+                    <p>Lua está digitando...</p>
                 </div>
             </div>
         )}
