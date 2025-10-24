@@ -101,11 +101,6 @@ const ChatScreen: React.FC = () => {
 
   return (
     <div className="flex flex-col w-full max-w-2xl h-[80vh] bg-gray-900 rounded-2xl shadow-xl animate-fade-in border border-gray-700">
-        <div className="p-4 border-b border-gray-700 text-center">
-            <h2 className="text-xl font-bold text-emerald-400">Fale com a Luna, sua assistente ✨</h2>
-            <p className="text-sm text-gray-400">Tire suas dúvidas!</p>
-        </div>
-        
       <div ref={chatContainerRef} className="flex-1 p-6 space-y-4 overflow-y-auto">
         {messages.map((msg, index) => (
           <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>

@@ -186,11 +186,6 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
 
   return (
      <div className="flex flex-col w-full max-w-3xl h-[85vh] max-h-[800px] bg-white rounded-2xl shadow-xl animate-fade-in border border-gray-200">
-        <div className="p-4 border-b border-gray-200 text-center flex-shrink-0">
-            <h2 className="text-xl font-bold text-emerald-700">Fale com a Luna, sua assistente ✨</h2>
-            <p className="text-sm text-gray-500">Sua análise está pronta! Tire suas dúvidas.</p>
-        </div>
-        
       <div ref={chatContainerRef} className="flex-1 p-4 md:p-6 space-y-4 overflow-y-auto">
         {messages.map((msg, index) => (
           <div key={index} className={`flex items-end gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
