@@ -15,11 +15,11 @@ const NameStep: React.FC<NameStepProps> = ({ onSubmit }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 w-full max-w-lg mx-auto animate-fade-in text-center">
+    <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-lg mx-auto animate-fade-in text-center">
       <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
         Antes de começarmos...
       </h2>
-      <p className="text-gray-600 mb-8">
+      <p className="text-gray-600 mb-6">
         Para personalizar sua análise, qual é o seu primeiro nome?
       </p>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 items-center">

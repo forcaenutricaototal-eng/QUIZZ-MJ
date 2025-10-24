@@ -157,7 +157,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
     return (
       <div className="text-center p-10 animate-fade-in w-full max-w-lg mx-auto bg-white rounded-2xl shadow-xl text-gray-800">
         <div className="flex justify-center items-center mb-4">
-          <svg className="animate-spin -ml-1 mr-3 h-8 w-8 text-emerald-500" xmlns="http://www.w.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <svg className="animate-spin -ml-1 mr-3 h-8 w-8 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
@@ -185,7 +185,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
   }
 
   return (
-     <div className="flex flex-col w-full max-w-3xl h-[80vh] max-h-[700px] bg-white rounded-2xl shadow-xl animate-fade-in border border-gray-200">
+     <div className="flex flex-col w-full max-w-3xl h-[85vh] max-h-[600px] sm:h-[80vh] sm:max-h-[700px] bg-white rounded-2xl shadow-xl animate-fade-in border border-gray-200">
       <div ref={chatContainerRef} className="flex-1 p-4 md:p-6 space-y-4 overflow-y-auto">
         {messages.map((msg, index) => (
           <div key={index} className={`flex items-end gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -195,7 +195,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
                 </div>
             )}
             <div
-              className={`max-w-md lg:max-w-lg px-4 py-3 rounded-2xl ${
+              className={`max-w-md lg:max-w-lg px-3 py-2 sm:px-4 sm:py-3 rounded-2xl ${
                 msg.role === 'user' 
                 ? 'bg-emerald-500 text-white rounded-br-lg' 
                 : 'bg-gray-100 text-gray-800 rounded-bl-lg'
@@ -224,7 +224,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
         {chatError && <p className="text-red-500 text-center text-sm py-2">{chatError}</p>}
       </div>
       
-      <div className="p-4 border-t border-gray-200 flex-shrink-0 bg-white">
+      <div className="p-3 sm:p-4 border-t border-gray-200 flex-shrink-0 bg-white">
         <form onSubmit={handleSendMessage} className="flex items-center gap-2">
           <input
             type="text"
@@ -232,13 +232,13 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
             onChange={(e) => setInput(e.target.value)}
             placeholder="Digite sua dúvida aqui..."
             disabled={isChatLoading}
-            className="flex-1 bg-gray-100 text-gray-800 border border-gray-300 rounded-full py-3 px-4 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="flex-1 bg-gray-100 text-gray-800 border border-gray-300 rounded-full py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-emerald-500"
             aria-label="Digite sua mensagem"
           />
           <button
             type="submit"
             disabled={isChatLoading || !input.trim()}
-            className="bg-emerald-500 text-white p-3 rounded-full hover:bg-emerald-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+            className="bg-emerald-500 text-white p-2.5 rounded-full hover:bg-emerald-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
             aria-label="Enviar mensagem"
           >
             <SendIcon />

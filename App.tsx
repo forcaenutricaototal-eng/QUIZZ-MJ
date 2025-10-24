@@ -37,7 +37,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800 flex flex-col items-center justify-center p-4">
-      <header className="w-full max-w-3xl mx-auto mb-4 text-center">
+      <header className="w-full max-w-3xl mx-auto mb-2 sm:mb-4 text-center">
         <h1 className="text-2xl md:text-4xl font-bold text-emerald-700">
           🍵 Descubra por que o Monjaro Japonês funciona para você!
         </h1>
@@ -52,7 +52,7 @@ const App: React.FC = () => {
         ) : (
           <>
             {!isQuizFinished && (
-              <div className="w-full max-w-3xl mx-auto mb-4">
+              <div className="w-full max-w-3xl mx-auto mb-2 sm:mb-4">
                 <div className="bg-gray-200 rounded-full h-2.5">
                   <div
                     className="bg-emerald-500 h-2.5 rounded-full transition-all duration-500"

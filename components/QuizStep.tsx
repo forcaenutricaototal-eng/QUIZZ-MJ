@@ -58,10 +58,10 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
         <div
             key={option.value}
             onClick={() => handleSelection(option.value)}
-            className={`flex items-center p-3 md:p-4 rounded-xl cursor-pointer transition-all duration-200 border shadow-sm ${
+            className={`flex items-center p-3 md:p-4 rounded-xl cursor-pointer transition-all duration-300 border shadow-md ${
                 isSelected 
-                ? 'border-emerald-600 bg-emerald-100 ring-2 ring-emerald-300 shadow-md' 
-                : 'bg-white border-gray-200 hover:border-emerald-500 hover:bg-emerald-50 hover:shadow-md'
+                ? 'border-emerald-500 bg-emerald-100 ring-2 ring-emerald-400 shadow-lg' 
+                : 'bg-white border-gray-200 hover:border-emerald-400 hover:bg-emerald-50 hover:shadow-lg hover:-translate-y-1'
             }`}
         >
             {option.image && (
@@ -85,8 +85,8 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
 
   return (
     <div className="p-0 md:p-6 w-full max-w-3xl mx-auto animate-fade-in">
-        <div className="bg-white rounded-2xl p-4 sm:p-6 md:p-8 shadow-lg">
-            <div className="text-center mb-6">
+        <div className="bg-white rounded-2xl p-4 md:p-6 shadow-lg">
+            <div className="text-center mb-4">
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-800">{question.text}</h2>
                 {question.subtitle && (
                     <p className="text-gray-600 text-lg mt-3 max-w-xl mx-auto">
@@ -100,7 +100,7 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
                 )}
             </div>
             
-            <div className="space-y-3 mb-8">
+            <div className="space-y-3 mb-6">
                 {question.options.map(renderOption)}
             </div>
         </div>
