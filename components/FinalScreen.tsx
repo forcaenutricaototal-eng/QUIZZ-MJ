@@ -49,7 +49,9 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
         const analysisText = data.analysis;
         const assistantIntro = `Acima está sua análise personalizada, ${name}.
 
-Eu sou a Luna, sua assistente. Estou aqui para tirar qualquer dúvida que você tenha antes de falar com a nossa especialista. O que você gostaria de saber?`;
+Eu sou a Luna, sua assistente. Estou aqui para te ajudar em cada passo.
+
+Para eu poder te orientar da melhor forma, me conta: quantos quilos você gostaria de eliminar, mais ou menos? 😍`;
 
         setMessages([
           { role: 'model', text: analysisText },

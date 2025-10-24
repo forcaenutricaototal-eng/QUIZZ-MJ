@@ -8,7 +8,7 @@ interface Message {
 
 const ChatScreen: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
-      { role: 'model', text: 'Seu resultado está pronto! 🎉 Eu sou a Luna, sua assistente. Estou aqui para tirar qualquer dúvida que você tenha antes de falar com a nossa especialista. O que você gostaria de saber?' },
+      { role: 'model', text: 'Olá! 🎉 Eu sou a Luna, sua assistente. Para eu poder te orientar da melhor forma, me conta: quantos quilos você gostaria de eliminar, mais ou menos? 😍' },
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
