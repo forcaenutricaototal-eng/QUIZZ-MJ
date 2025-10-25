@@ -41,7 +41,7 @@ const App: React.FC = () => {
         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-emerald-700">
           🍵 Descubra por que o Monjaro Japonês funciona para você!
         </h1>
-        <p className="text-sm sm:text-base text-gray-600 mt-2">
+        <p className="text-sm sm:text-base text-gray-700 mt-2">
           Em poucos minutos você vai identificar o bloqueio que trava seu emagrecimento 🎯 — e ver como agir de forma natural e definitiva.
         </p>
       </header>

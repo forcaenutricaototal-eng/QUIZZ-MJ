@@ -60,8 +60,8 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
             onClick={() => handleSelection(option.value)}
             className={`flex items-center p-3 sm:p-4 rounded-xl cursor-pointer transition-all duration-300 border-2 shadow-sm ${
                 isSelected 
-                ? 'border-emerald-500 bg-emerald-100 shadow-lg scale-[1.02]' 
-                : 'bg-white border-gray-200 hover:border-emerald-400 hover:bg-emerald-50/75 hover:shadow-md'
+                ? 'border-emerald-600 bg-emerald-100 shadow-xl scale-[1.03]' 
+                : 'bg-white border-gray-300 hover:border-emerald-400 hover:bg-emerald-50 hover:shadow-md'
             }`}
         >
             {option.image && (
@@ -69,9 +69,9 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
                     <img src={option.image} alt={option.label} className="w-full h-full object-cover" />
                 </div>
             )}
-            <span className={`flex-1 text-sm sm:text-base font-medium ${isSelected ? 'text-emerald-900 font-bold' : 'text-gray-700'}`}>{option.label}</span>
+            <span className={`flex-1 text-sm sm:text-base font-medium ${isSelected ? 'text-emerald-900 font-bold' : 'text-gray-800'}`}>{option.label}</span>
             <div className={`w-6 h-6 rounded-md border-2 flex-shrink-0 flex items-center justify-center ml-4 transition-colors ${
-                isSelected ? 'bg-emerald-500 border-emerald-600' : 'border-gray-300 bg-gray-50'
+                isSelected ? 'bg-emerald-500 border-emerald-600' : 'border-gray-400 bg-white'
             }`}>
                 {isSelected && (
                     <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
@@ -89,12 +89,12 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
             <div className="text-center mb-5">
                 <h2 className="text-xl md:text-2xl font-bold text-gray-800">{question.text}</h2>
                 {question.subtitle && (
-                    <p className="text-gray-600 text-sm sm:text-base mt-2 max-w-xl mx-auto">
+                    <p className="text-gray-700 text-sm sm:text-base mt-2 max-w-xl mx-auto">
                         {question.subtitle}
                     </p>
                 )}
                 {question.type === QuestionType.Multiple && (
-                <p className="text-gray-500 text-sm mt-1">
+                <p className="text-gray-600 text-sm mt-1">
                     (Selecione uma ou mais opções)
                 </p>
                 )}

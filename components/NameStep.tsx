@@ -19,7 +19,7 @@ const NameStep: React.FC<NameStepProps> = ({ onSubmit }) => {
       <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">
         Antes de começarmos...
       </h2>
-      <p className="text-gray-600 mb-5 text-sm sm:text-base">
+      <p className="text-gray-700 mb-5 text-sm sm:text-base">
         Para personalizar sua análise, qual é o seu primeiro nome?
       </p>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 items-center">

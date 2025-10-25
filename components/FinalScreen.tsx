@@ -125,7 +125,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
         );
       } else {
         return part.split('\n').map((paragraph, pIndex) =>
-          paragraph.trim() ? <p key={`${index}-${pIndex}`} className="leading-relaxed mb-2 text-sm">{paragraph}</p> : null
+          paragraph.trim() ? <p key={`${index}-${pIndex}`} className="leading-relaxed mb-2 text-sm text-gray-700">{paragraph}</p> : null
         );
       }
     });
@@ -238,7 +238,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
           <button
             type="submit"
             disabled={isChatLoading || !input.trim()}
-            className="bg-emerald-500 text-white p-2.5 rounded-full hover:bg-emerald-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+            className="bg-emerald-500 text-white p-3 rounded-full hover:bg-emerald-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-110 shadow-md"
             aria-label="Enviar mensagem"
           >
             <SendIcon />
