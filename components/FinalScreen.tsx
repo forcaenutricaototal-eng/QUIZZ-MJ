@@ -225,20 +225,23 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
       </div>
       
       <div className="p-2 sm:p-3 border-t border-gray-200 flex-shrink-0 bg-white rounded-b-2xl">
-        <form onSubmit={handleSendMessage} className="flex items-center gap-2">
+        <form 
+          onSubmit={handleSendMessage} 
+          className="flex items-center gap-1 bg-gray-100 border border-gray-300 rounded-full p-1 shadow-inner"
+        >
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Digite sua dúvida aqui..."
             disabled={isChatLoading}
-            className="flex-1 bg-gray-100 text-gray-800 border border-gray-300 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="flex-1 bg-transparent text-gray-800 border-none rounded-full py-2 px-4 focus:outline-none focus:ring-0"
             aria-label="Digite sua mensagem"
           />
           <button
             type="submit"
             disabled={isChatLoading || !input.trim()}
-            className="bg-emerald-500 text-white p-3 rounded-full hover:bg-emerald-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-110 shadow-md"
+            className="bg-emerald-500 text-white p-3 rounded-full hover:bg-emerald-600 disabled:bg-gray-500 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 shadow-md disabled:shadow-none"
             aria-label="Enviar mensagem"
           >
             <SendIcon />

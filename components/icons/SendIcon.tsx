@@ -7,6 +7,10 @@ export const SendIcon = () => (
     fill="currentColor"
     className="w-6 h-6"
   >
-    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+    <path
+      fillRule="evenodd"
+      d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
+      clipRule="evenodd"
+    />
   </svg>
 );
