@@ -135,18 +135,29 @@ Você é Luna, uma agente de vendas especialista da equipe da Simone, criadora d
     if (e.cause) console.error("Error Cause:", e.cause);
     console.error("--- END OF ERROR ---");
     
-    let errorMessage = 'Ocorreu um erro desconhecido.';
+    let errorMessage = 'Ocorreu um erro na comunicação com a assistente. Tente novamente.';
+    
     if (e.message) {
-        if (e.message.includes('did not match the expected pattern') || e.message.includes('API key not valid')) {
-            errorMessage = 'A chave de API fornecida parece ser inválida ou está com o formato incorreto. Por favor, verifique se a variável de ambiente API_KEY está configurada corretamente no Vercel.';
+        if (e.message.includes('503') || e.message.includes('overloaded')) {
+            errorMessage = 'Nossa assistente virtual está com uma alta demanda no momento. Por favor, aguarde um instante e tente novamente.';
+        } else if (e.message.includes('API key not valid')) {
+            errorMessage = "A chave de API fornecida é inválida. Verifique a configuração no Vercel.";
         } else if (e.message.includes('permission denied')) {
-            errorMessage = 'Permissão negada pela API do Google. Verifique se a API do Gemini está ativada no seu projeto Google Cloud e se a chave tem as permissões corretas.';
+            errorMessage = 'Permissão negada para usar a API. Verifique as configurações da sua chave.';
         } else if (e.message.includes('timed out')) {
-            errorMessage = 'A solicitação demorou muito para responder. Tente novamente.';
+            errorMessage = 'A solicitação para a IA demorou muito para responder. Tente novamente.';
         } else {
-            errorMessage = e.message;
+            try {
+                const errorDetail = JSON.parse(e.message);
+                if (errorDetail.error && errorDetail.error.message) {
+                    errorMessage = `Ocorreu um erro na IA: ${errorDetail.error.message}`;
+                }
+            } catch (parseError) {
+                // Keep default message
+            }
         }
     }
+    
     return response.status(500).json({ error: errorMessage });
   }
 }
