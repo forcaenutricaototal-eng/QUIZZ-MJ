@@ -4,6 +4,7 @@ import { SendIcon } from './icons/SendIcon';
 interface FinalScreenProps {
   answers: Record<number, string[]>;
   name: string;
+  onFirstUserMessage: () => void;
 }
 
 interface Message {
@@ -24,7 +25,7 @@ const getErrorMessage = (e: any): string => {
 };
 
 
-const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
+const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name, onFirstUserMessage }) => {
   const [isAnalysisLoading, setAnalysisLoading] = useState(true);
   const [analysisError, setAnalysisError] = useState<string | null>(null);
 
@@ -79,6 +80,11 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isChatLoading) return;
+
+    const isFirstUserMessage = !messages.some(msg => msg.role === 'user');
+    if (isFirstUserMessage) {
+      onFirstUserMessage();
+    }
 
     const userMessage: Message = { role: 'user', text: input };
     const newMessages = [...messages, userMessage];

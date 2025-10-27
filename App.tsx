@@ -10,6 +10,7 @@ const App: React.FC = () => {
   const [answers, setAnswers] = useState<Record<number, string[]>>({});
   const [userName, setUserName] = useState<string>('');
   const [quizStarted, setQuizStarted] = useState(false);
+  const [showWhatsAppButton, setShowWhatsAppButton] = useState(false);
 
   const totalSteps = QUIZ_DATA.length;
   const isQuizFinished = currentStep >= totalSteps;
@@ -32,6 +33,10 @@ const App: React.FC = () => {
     if (currentStep > 0) {
       setCurrentStep(prev => prev - 1);
     }
+  };
+  
+  const handleFirstUserMessage = () => {
+    setShowWhatsAppButton(true);
   };
 
   const progressPercentage = isQuizFinished ? 100 : (currentStep / totalSteps) * 100;
@@ -65,7 +70,11 @@ const App: React.FC = () => {
             )}
 
             {isQuizFinished ? (
-              <FinalScreen answers={answers} name={userName} />
+              <FinalScreen
+                answers={answers}
+                name={userName}
+                onFirstUserMessage={handleFirstUserMessage}
+              />
             ) : (
               <QuizStep
                 key={currentQuestion.id}
@@ -81,7 +90,7 @@ const App: React.FC = () => {
         )}
       </main>
 
-      {isQuizFinished && <WhatsAppButton />}
+      {isQuizFinished && showWhatsAppButton && <WhatsAppButton />}
 
       <footer className="w-full text-center p-2 sm:p-4 text-xs text-gray-500">
         <p>&copy; {new Date().getFullYear()} Quiz Monjaro Japonês. Todos os direitos reservados.</p>
