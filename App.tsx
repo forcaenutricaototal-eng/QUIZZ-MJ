@@ -3,6 +3,7 @@ import { QUIZ_DATA } from './constants';
 import QuizStep from './components/QuizStep';
 import FinalScreen from './components/FinalScreen';
 import NameStep from './components/NameStep';
+import WhatsAppButton from './components/WhatsAppButton';
 
 const App: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -79,6 +80,8 @@ const App: React.FC = () => {
           </>
         )}
       </main>
+
+      {isQuizFinished && <WhatsAppButton />}
 
       <footer className="w-full text-center p-2 sm:p-4 text-xs text-gray-500">
         <p>&copy; {new Date().getFullYear()} Quiz Monjaro Japonês. Todos os direitos reservados.</p>

@@ -11,6 +11,19 @@ interface Message {
   text: string;
 }
 
+const getErrorMessage = (e: any): string => {
+  if (typeof e.message !== 'string') {
+    return 'Ocorreu um erro inesperado.';
+  }
+  try {
+    const errorObj = JSON.parse(e.message);
+    return errorObj.error || errorObj.message || e.message;
+  } catch (parseError) {
+    return e.message;
+  }
+};
+
+
 const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
   const [isAnalysisLoading, setAnalysisLoading] = useState(true);
   const [analysisError, setAnalysisError] = useState<string | null>(null);
@@ -55,7 +68,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
         ]);
 
       } catch (e: any) {
-        setAnalysisError(e.message);
+        setAnalysisError(getErrorMessage(e));
       } finally {
         setAnalysisLoading(false);
       }
@@ -106,7 +119,8 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
       }
     } catch (e: any) {
       console.error(e);
-      setChatError(`Ocorreu um erro ao conectar com a assistente. (Detalhe: ${e.message})`);
+      const detail = getErrorMessage(e);
+      setChatError(`Ocorreu um erro ao conectar com a assistente. (Detalhe: ${detail})`);
       setMessages((prev) => prev.slice(0, -1));
       setInput(currentInput);
     } finally {
@@ -172,7 +186,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name }) => {
     return (
       <div className="text-center p-10 animate-fade-in w-full max-w-lg mx-auto bg-red-50 border-l-4 border-red-500 rounded-lg shadow-xl text-red-800">
         <h2 className="text-2xl font-bold">Ocorreu um Erro</h2>
-        <p className="text-red-700 mt-2">Não foi possível carregar sua análise.</p>
+        <p className="text-red-700 mt-2">Não foi possível carregar sua análise personalizada.</p>
         <p className="text-sm bg-red-100 p-3 mt-4 rounded-md text-left"><strong>Detalhe:</strong> {analysisError}</p>
         <button
           onClick={() => window.location.reload()}

@@ -239,7 +239,8 @@ export default async function handler(
 
         if (!analysisText || analysisText.trim() === '') {
             console.error("--- GEMINI RESPONSE EMPTY ---");
-            console.error("Prompt Summary:", promptSummary);
+            console.error("User Name:", name);
+            console.error("User Answers:", JSON.stringify(answers, null, 2));
             console.error("Full Gemini Response:", JSON.stringify(geminiResponse, null, 2));
             return response.status(500).json({ error: 'A IA não conseguiu gerar uma análise para estas respostas. Isso pode ocorrer devido a restrições de segurança ou uma falha temporária. Por favor, tente novamente.' });
         }
@@ -248,6 +249,8 @@ export default async function handler(
 
     } catch (e: any) {
         console.error("--- DETAILED ERROR in /api/generate ---");
+        console.error("User Name:", request.body.name);
+        console.error("User Answers:", JSON.stringify(request.body.answers, null, 2));
         console.error("Error Message:", e.message);
         console.error("Error Stack:", e.stack);
         if (e.cause) console.error("Error Cause:", e.cause);

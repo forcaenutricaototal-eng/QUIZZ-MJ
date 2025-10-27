@@ -129,6 +129,7 @@ Você é Luna, uma agente de vendas especialista da equipe da Simone, criadora d
 
   } catch (e: any) {
     console.error("--- DETAILED ERROR in /api/chat ---");
+    console.error("Chat History:", JSON.stringify(request.body.history, null, 2));
     console.error("Error Message:", e.message);
     console.error("Error Stack:", e.stack);
     if (e.cause) console.error("Error Cause:", e.cause);
