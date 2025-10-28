@@ -1,26 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { QUIZ_DATA } from './constants';
 import QuizStep from './components/QuizStep';
 import FinalScreen from './components/FinalScreen';
 import NameStep from './components/NameStep';
-import WhatsAppButton from './components/WhatsAppButton';
 
 const App: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string[]>>({});
   const [userName, setUserName] = useState<string>('');
   const [quizStarted, setQuizStarted] = useState(false);
-  const [showWhatsAppButton, setShowWhatsAppButton] = useState(false);
 
   const totalSteps = QUIZ_DATA.length;
   const isQuizFinished = currentStep >= totalSteps;
   const currentQuestion = QUIZ_DATA[currentStep];
-
-  useEffect(() => {
-    if (isQuizFinished) {
-      setShowWhatsAppButton(true);
-    }
-  }, [isQuizFinished]);
 
   const handleNameSubmit = (name: string) => {
     setUserName(name);
@@ -87,8 +79,6 @@ const App: React.FC = () => {
           </>
         )}
       </main>
-
-      {isQuizFinished && showWhatsAppButton && <WhatsAppButton />}
 
       <footer className="w-full text-center p-2 sm:p-4 text-xs text-gray-500">
         <p>&copy; {new Date().getFullYear()} Quiz Monjaro Japonês. Todos os direitos reservados.</p>
