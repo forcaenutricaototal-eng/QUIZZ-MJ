@@ -1,4 +1,4 @@
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenAI, HarmCategory, HarmBlockThreshold } from '@google/genai';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export default async function handler(
@@ -108,12 +108,32 @@ Você é Luna, uma agente de vendas especialista da equipe da Simone, criadora d
 - **Se agradecer ou disser que vai deixar para depois:**
   - "Claro, sem problema 🧡 Fico muito feliz que tenha se interessado. Estarei por aqui se surgir qualquer dúvida, tá bem? Conte comigo nessa jornada! 💪✨"`;
     
+    const safetySettings = [
+        {
+            category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+            threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        },
+        {
+            category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+            threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        },
+        {
+            category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+            threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        },
+        {
+            category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+            threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        },
+    ];
+
     const geminiResponse = await ai.models.generateContent({
       model: 'gemini-2.5-pro',
       contents: contents,
       config: {
         systemInstruction: systemInstruction,
-      }
+      },
+      safetySettings,
     });
 
     const messageText = geminiResponse.text;

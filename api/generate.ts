@@ -1,4 +1,4 @@
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenAI, HarmCategory, HarmBlockThreshold } from '@google/genai';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 // Duplicating types and data to make the function self-contained
@@ -219,7 +219,7 @@ export default async function handler(
 
             if (isOver40) {
               systemInstruction += `
-              \n**HISTÓRIA PESSOAL (OBRIGATÓRIO PARA ESTA USUÁRIA):**
+              \n**HISTÓRIA PESSOAL (OBRIGATÓRIO PARA ESTA USUÁria):**
               Como esta usuária tem 40 anos ou mais, você DEVE incluir sua história pessoal na seção **O Caminho para seu Resultado**. Diga exatamente isto, de forma natural: "Eu entendo perfeitamente sua luta, ${userName}, pois já estive aí. Em 2017, eu eliminei 73kg. Eu sofria com uma compulsão alimentar muito forte e com lipedema grau 3, um quadro que muitos consideravam impossível de reverter. Foi o Monjaro Japonês que me permitiu vencer essa batalha, pois a estratégia é desenhada para ser altamente eficiente em casos como o nosso. Eu sou a prova viva disso." Use isso para gerar confiança.
               `;
             }
@@ -227,12 +227,32 @@ export default async function handler(
         
         const userContent = `Aqui estão as respostas do usuário ${userName} para você analisar:\n${promptSummary}`;
 
+        const safetySettings = [
+            {
+                category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+                threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+            },
+            {
+                category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+                threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+            },
+            {
+                category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+                threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+            },
+            {
+                category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+                threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+            },
+        ];
+
         const geminiResponse = await ai.models.generateContent({
             model: 'gemini-2.5-pro',
             contents: userContent,
             config: {
                 systemInstruction: systemInstruction
-            }
+            },
+            safetySettings,
         });
         
         const analysisText = geminiResponse.text;
