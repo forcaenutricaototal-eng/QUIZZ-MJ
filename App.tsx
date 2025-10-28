@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { QUIZ_DATA } from './constants';
 import QuizStep from './components/QuizStep';
 import FinalScreen from './components/FinalScreen';
@@ -15,6 +15,12 @@ const App: React.FC = () => {
   const totalSteps = QUIZ_DATA.length;
   const isQuizFinished = currentStep >= totalSteps;
   const currentQuestion = QUIZ_DATA[currentStep];
+
+  useEffect(() => {
+    if (isQuizFinished) {
+      setShowWhatsAppButton(true);
+    }
+  }, [isQuizFinished]);
 
   const handleNameSubmit = (name: string) => {
     setUserName(name);
@@ -33,10 +39,6 @@ const App: React.FC = () => {
     if (currentStep > 0) {
       setCurrentStep(prev => prev - 1);
     }
-  };
-  
-  const handleFirstUserMessage = () => {
-    setShowWhatsAppButton(true);
   };
 
   const progressPercentage = isQuizFinished ? 100 : (currentStep / totalSteps) * 100;
@@ -70,11 +72,7 @@ const App: React.FC = () => {
             )}
 
             {isQuizFinished ? (
-              <FinalScreen
-                answers={answers}
-                name={userName}
-                onFirstUserMessage={handleFirstUserMessage}
-              />
+              <FinalScreen name={userName} answers={answers} />
             ) : (
               <QuizStep
                 key={currentQuestion.id}

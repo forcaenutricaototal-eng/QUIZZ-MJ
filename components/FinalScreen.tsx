@@ -1,268 +1,104 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { SendIcon } from './icons/SendIcon';
+import React, { useState, useEffect } from 'react';
+import { WhatsAppIcon } from './icons/WhatsAppIcon';
 
 interface FinalScreenProps {
-  answers: Record<number, string[]>;
   name: string;
-  onFirstUserMessage: () => void;
+  answers: Record<number, string[]>;
 }
 
-interface Message {
-  role: 'user' | 'model';
-  text: string;
-}
-
-const getErrorMessage = (e: any): string => {
-  if (e && typeof e.message === 'string') {
-    return e.message;
-  }
-  return 'Ocorreu um erro inesperado.';
-};
-
-
-const FinalScreen: React.FC<FinalScreenProps> = ({ answers, name, onFirstUserMessage }) => {
-  const [isAnalysisLoading, setAnalysisLoading] = useState(true);
-  const [analysisError, setAnalysisError] = useState<string | null>(null);
-
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState('');
-  const [isChatLoading, setChatLoading] = useState(false);
-  const [chatError, setChatError] = useState<string | null>(null);
-  const chatContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    }
-  }, [messages, isChatLoading]);
+const FinalScreen: React.FC<FinalScreenProps> = ({ name, answers }) => {
+  const [analysis, setAnalysis] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const generateAnalysis = async () => {
-      setAnalysisLoading(true);
-      setAnalysisError(null);
+      setLoading(true);
+      setError(null);
       try {
         const response = await fetch('/api/generate', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ answers, name }),
+          body: JSON.stringify({ name, answers }),
         });
 
-        const data = await response.json();
+        const responseBody = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.error || 'Falha ao gerar a análise.');
+          throw new Error(responseBody.error || 'Ocorreu um erro desconhecido ao gerar a análise.');
         }
-        
-        const analysisText = data.analysis;
-        const assistantIntro = `Oi, ${name}! 😊 Tudo bem? Aqui é a Luna, da equipe da Simone. 💕\n\nSua análise completa está acima. Se você tiver alguma dúvida sobre o Monjaro Japonês, é só me perguntar aqui.`;
 
-        setMessages([
-          { role: 'model', text: analysisText },
-          { role: 'model', text: assistantIntro },
-        ]);
-
+        setAnalysis(responseBody.analysis);
       } catch (e: any) {
-        setAnalysisError(getErrorMessage(e));
+        console.error(e);
+        setError(e.message || 'Falha ao conectar com o servidor. Verifique sua conexão e tente novamente.');
       } finally {
-        setAnalysisLoading(false);
+        setLoading(false);
       }
     };
+
     generateAnalysis();
-  }, [answers, name]);
-  
-  const handleSendMessage = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim() || isChatLoading) return;
+  }, [name, answers]);
 
-    const isFirstUserMessage = !messages.some(msg => msg.role === 'user');
-    if (isFirstUserMessage) {
-      onFirstUserMessage();
-    }
-
-    const userMessage: Message = { role: 'user', text: input };
-    const newMessages = [...messages, userMessage];
-    setMessages(newMessages);
-    const currentInput = input;
-    setInput('');
-    setChatLoading(true);
-    setChatError(null);
-
-    try {
-      const historyForApi = newMessages.slice(-10);
-
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ history: historyForApi }),
-      });
-
-      const responseBody = await response.text();
-
-      if (!response.ok) {
-        let errorMessage = responseBody;
-        try {
-          const errorJson = JSON.parse(responseBody);
-          errorMessage = errorJson.error || responseBody;
-        } catch (e) { /* Not JSON */ }
-        throw new Error(errorMessage);
-      }
-
-      const data = JSON.parse(responseBody);
-      if (data.message) {
-          const modelMessage: Message = { role: 'model', text: data.message };
-          setMessages((prev) => [...prev, modelMessage]);
-      } else {
-          throw new Error("Resposta da assistente não contém a mensagem esperada.");
-      }
-    } catch (e: any) {
-      console.error(e);
-      const detail = getErrorMessage(e);
-      setChatError(`Ocorreu um erro ao conectar com a assistente. (Detalhe: ${detail})`);
-      setMessages((prev) => prev.slice(0, -1));
-      setInput(currentInput);
-    } finally {
-      setChatLoading(false);
-    }
+  const formatAnalysis = (text: string) => {
+    let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    formattedText = formattedText.replace(/\n/g, '<br />');
+    return { __html: formattedText };
   };
 
-  const renderFormattedText = (text: string) => {
-    const parts = text.split(/(\*\*.*?\*\*)/g).filter(p => p.trim() !== '');
-    return parts.map((part, index) => {
-      if (part.startsWith('**') && part.endsWith('**')) {
-        return (
-          <h3 key={index} className="text-lg font-bold text-gray-800 mt-4 mb-2">
-            {part.slice(2, -2)}
-          </h3>
-        );
-      } else {
-        return part.split('\n').map((paragraph, pIndex) =>
-          paragraph.trim() ? <p key={`${index}-${pIndex}`} className="leading-relaxed mb-2 text-sm text-gray-700">{paragraph}</p> : null
-        );
-      }
-    });
-  };
+  const whatsappUrl = "https://wa.me/5513920005779?text=" + encodeURIComponent(`Olá, meu nome é ${name} e acabei de receber minha análise pelo quiz! Tenho interesse no protocolo.`);
 
-  const renderMessageWithLinks = (text: string) => {
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const parts = text.split(urlRegex);
-
-    return parts.map((part, index) => {
-      if (part.match(urlRegex)) {
-        return (
-          <a
-            key={index}
-            href={part}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-emerald-600 hover:underline font-semibold break-all"
-          >
-            {part}
-          </a>
-        );
-      }
-      return part;
-    });
-  };
-
-  if (isAnalysisLoading) {
+  if (loading) {
     return (
-      <div className="text-center p-10 animate-fade-in w-full max-w-lg mx-auto bg-white rounded-2xl shadow-xl text-gray-800">
-        <div className="flex justify-center items-center mb-4">
-          <svg className="animate-spin -ml-1 mr-3 h-8 w-8 text-emerald-500" xmlns="http://www.w.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-        </div>
-        <h2 className="text-2xl font-bold text-emerald-800">Analisando suas respostas...</h2>
-        <p className="text-gray-600 mt-2">Estamos preparando uma análise personalizada para você. Só um instante! 🍵</p>
+      <div className="text-center p-6 sm:p-10 animate-fade-in w-full max-w-lg mx-auto bg-white rounded-2xl shadow-xl">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-emerald-500 mx-auto"></div>
+        <h2 className="text-xl sm:text-2xl font-bold text-emerald-800 mt-6">Analisando suas respostas...</h2>
+        <p className="text-gray-600 mt-2 text-sm sm:text-base">Estamos preparando um diagnóstico personalizado para você. Por favor, aguarde um instante.</p>
       </div>
     );
   }
 
-  if (analysisError) {
+  if (error) {
     return (
-      <div className="text-center p-10 animate-fade-in w-full max-w-lg mx-auto bg-red-50 border-l-4 border-red-500 rounded-lg shadow-xl text-red-800">
-        <h2 className="text-2xl font-bold">Ocorreu um Erro</h2>
-        <p className="text-red-700 mt-2">Não foi possível carregar sua análise personalizada.</p>
-        <p className="text-sm bg-red-100 p-3 mt-4 rounded-md text-left"><strong>Detalhe:</strong> {analysisError}</p>
-        <button
-          onClick={() => window.location.reload()}
-          className="mt-6 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg"
+      <div className="text-center p-6 sm:p-10 animate-fade-in w-full max-w-lg mx-auto bg-white rounded-2xl shadow-xl">
+        <div className="text-5xl mb-4">😢</div>
+        <h2 className="text-2xl font-bold text-red-600">Ocorreu um Erro</h2>
+        <p className="text-gray-600 mt-4 mb-6 bg-red-50 p-3 rounded-lg border border-red-200 text-sm">{error}</p>
+        <a 
+          href={whatsappUrl} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="inline-flex items-center justify-center gap-3 font-bold py-3 px-6 rounded-lg text-base transition-colors shadow-lg bg-green-500 hover:bg-green-600 text-white"
         >
-          Tentar Novamente
-        </button>
+          <WhatsAppIcon />
+          Falar com Suporte
+        </a>
       </div>
     );
   }
 
   return (
-     <div className="flex flex-col w-full max-w-3xl h-[85vh] sm:h-[80vh] max-h-[700px] bg-white rounded-2xl shadow-xl animate-fade-in border border-gray-200">
-      <div ref={chatContainerRef} className="flex-1 p-3 sm:p-4 space-y-3 overflow-y-auto">
-        {messages.map((msg, index) => (
-          <div key={index} className={`flex items-end gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            {msg.role === 'model' && (
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 text-lg sm:text-xl">
-                    🌙
-                </div>
-            )}
-            <div
-              className={`max-w-md lg:max-w-lg px-3 py-2 rounded-2xl ${
-                msg.role === 'user' 
-                ? 'bg-emerald-500 text-white rounded-br-lg' 
-                : 'bg-gray-100 text-gray-800 rounded-bl-lg'
-              }`}
+    <div className="p-4 sm:p-6 w-full max-w-3xl mx-auto bg-white rounded-2xl shadow-xl animate-fade-in">
+        <h2 className="text-2xl sm:text-3xl font-bold text-emerald-800 text-center mb-4">
+            Análise Pronta, {name}! 🎉
+        </h2>
+        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 max-h-[50vh] overflow-y-auto text-gray-700 space-y-4 text-left">
+           {analysis && <div dangerouslySetInnerHTML={formatAnalysis(analysis)} />}
+        </div>
+        <div className="text-center mt-6">
+            <p className="text-gray-600 mb-4 text-lg">Gostou da análise? Dê o próximo passo na sua jornada!</p>
+             <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 shadow-lg w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white transform hover:scale-105"
             >
-              {index === 0 && msg.role === 'model' 
-                ? <div className="max-w-none">{renderFormattedText(msg.text)}</div> 
-                : <p className="whitespace-pre-wrap text-sm sm:text-base">{renderMessageWithLinks(msg.text)}</p>}
-            </div>
-          </div>
-        ))}
-        {isChatLoading && (
-            <div className="flex items-end gap-2.5 justify-start">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 text-lg sm:text-xl">
-                    🌙
-                </div>
-                <div className="max-w-xs px-4 py-3 rounded-2xl bg-gray-100 text-gray-800">
-                    <div className="flex items-center space-x-1">
-                      <span className="h-1.5 w-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                      <span className="h-1.5 w-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                      <span className="h-1.5 w-1.5 bg-gray-400 rounded-full animate-bounce"></span>
-                    </div>
-                </div>
-            </div>
-        )}
-        {chatError && <p className="text-red-500 text-center text-sm py-2">{chatError}</p>}
-      </div>
-      
-      <div className="p-2 sm:p-3 border-t border-gray-200 flex-shrink-0 bg-white rounded-b-2xl">
-        <form 
-          onSubmit={handleSendMessage} 
-          className="flex items-center gap-1 bg-gray-100 border border-gray-300 rounded-full p-1 shadow-inner"
-        >
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Digite sua dúvida aqui..."
-            disabled={isChatLoading}
-            className="flex-1 bg-transparent text-gray-800 border-none rounded-full py-2 px-4 focus:outline-none focus:ring-0"
-            aria-label="Digite sua mensagem"
-          />
-          <button
-            type="submit"
-            disabled={isChatLoading || !input.trim()}
-            className="bg-emerald-500 text-white p-3 rounded-full hover:bg-emerald-600 disabled:bg-gray-500 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 shadow-md disabled:shadow-none"
-            aria-label="Enviar mensagem"
-          >
-            <SendIcon />
-          </button>
-        </form>
-      </div>
+                <WhatsAppIcon />
+                Falar com Especialista
+            </a>
+        </div>
     </div>
   );
 };
