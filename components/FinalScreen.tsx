@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { WhatsAppIcon } from './icons/WhatsAppIcon';
+import ChatScreen from './ChatScreen';
 
 interface FinalScreenProps {
   name: string;
@@ -42,12 +43,6 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ name, answers }) => {
     generateAnalysis();
   }, [name, answers]);
 
-  const formatAnalysis = (text: string) => {
-    let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    formattedText = formattedText.replace(/\n/g, '<br />');
-    return { __html: formattedText };
-  };
-
   const whatsappUrl = "https://wa.me/5513920005779?text=" + encodeURIComponent(`Olá, meu nome é ${name} e acabei de receber minha análise pelo quiz! Tenho interesse no protocolo.`);
 
   if (loading) {
@@ -78,29 +73,12 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ name, answers }) => {
       </div>
     );
   }
+  
+  if (analysis) {
+     return <ChatScreen name={name} initialAnalysis={analysis} />;
+  }
 
-  return (
-    <div className="p-4 sm:p-6 w-full max-w-3xl mx-auto bg-white rounded-2xl shadow-xl animate-fade-in">
-        <h2 className="text-2xl sm:text-3xl font-bold text-emerald-800 text-center mb-4">
-            Análise Pronta, {name}! 🎉
-        </h2>
-        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 max-h-[50vh] overflow-y-auto text-gray-700 space-y-4 text-left">
-           {analysis && <div dangerouslySetInnerHTML={formatAnalysis(analysis)} />}
-        </div>
-        <div className="text-center mt-6">
-            <p className="text-gray-600 mb-4 text-lg">Gostou da análise? Dê o próximo passo na sua jornada!</p>
-             <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-3 font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 shadow-lg w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white transform hover:scale-105"
-            >
-                <WhatsAppIcon />
-                Falar com Especialista
-            </a>
-        </div>
-    </div>
-  );
+  return null;
 };
 
 export default FinalScreen;
