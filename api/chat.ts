@@ -1,12 +1,32 @@
-import { GoogleGenAI, HarmCategory, HarmBlockThreshold } from '@google/genai';
+import { GoogleGenAI, HarmCategory, HarmBlockThreshold, Chat } from '@google/genai';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { MALE_NAMES } from '../constants';
 
-const MALE_NAMES = [
-  'joao', 'jose', 'antonio', 'francisco', 'carlos', 'paulo', 'pedro', 'lucas',
-  'luiz', 'marcos', 'luis', 'gabriel', 'rafael', 'daniel', 'marcelo', 'bruno',
-  'eduardo', 'felipe', 'rodrigo', 'fernando', 'andre', 'thiago', 'diego', 'marcio',
-  'ricardo', 'alexandre', 'sergio', 'sandro', 'adriano', 'leandro'
-];
+async function sendMessageWithRetry(
+  chat: Chat,
+  message: string,
+  retries = 3,
+  delay = 1000
+): Promise<string> {
+  try {
+    const result = await chat.sendMessage({ message });
+    const text = result.text;
+
+    if (!text || text.trim() === '') {
+      throw new Error('A IA não conseguiu gerar uma resposta para esta pergunta.');
+    }
+
+    return text;
+  } catch (e: any) {
+    const errorMessage = e.message || '';
+    if ((errorMessage.includes('503') || errorMessage.includes('overloaded') || errorMessage.includes('UNAVAILABLE') || errorMessage.includes('429') || errorMessage.includes('RESOURCE_EXHAUSTED')) && retries > 0) {
+      console.log(`API rate limit or overload on chat, retrying in ${delay}ms... (${retries} retries left)`);
+      await new Promise(res => setTimeout(res, delay));
+      return sendMessageWithRetry(chat, message, retries - 1, delay * 2);
+    }
+    throw e;
+  }
+}
 
 export default async function handler(
   request: VercelRequest,
@@ -63,12 +83,24 @@ export default async function handler(
         history: geminiHistory
     });
 
-    const result = await chat.sendMessage({ message: lastMessage.content });
+    const resultText = await sendMessageWithRetry(chat, lastMessage.content);
     
-    return response.status(200).json({ text: result.text });
+    return response.status(200).json({ text: resultText });
 
   } catch (error: any) {
     console.error("Error in /api/chat:", error);
-    return response.status(500).json({ error: error.message || 'An unknown error occurred.' });
+    
+    let errorMessage = 'Ocorreu um erro ao processar sua mensagem. Tente novamente.';
+    if (error.message) {
+        if (error.message.includes('429') || error.message.includes('RESOURCE_EXHAUSTED')) {
+            errorMessage = 'Nossa assistente está com muitas solicitações no momento. Por favor, tente novamente em um instante.';
+        } else if (error.message.includes('503') || error.message.includes('overloaded') || error.message.includes('UNAVAILABLE')) {
+            errorMessage = 'Nossa assistente virtual está indisponível no momento. Por favor, tente novamente mais tarde.';
+        } else {
+            errorMessage = error.message;
+        }
+    }
+
+    return response.status(500).json({ error: errorMessage });
   }
 }

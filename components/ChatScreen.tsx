@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { WhatsAppIcon } from './icons/WhatsAppIcon';
 import { SendIcon } from './icons/SendIcon';
+import { MALE_NAMES } from '../constants';
 
 interface Message {
   role: 'user' | 'model';
@@ -72,6 +73,10 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ name, initialAnalysis }) => {
   
   const whatsappUrl = "https://wa.me/5513920005779?text=" + encodeURIComponent(`Olá, meu nome é ${name} e acabei de receber minha análise pelo quiz! Tenho interesse no protocolo.`);
 
+  const normalizedFirstName = name.trim().split(' ')[0].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const isMaleName = MALE_NAMES.includes(normalizedFirstName);
+  const buttonText = isMaleName ? 'Conversar com o Dr. Kenji e receber meu protocolo' : 'Conversar com a Simone e receber meu protocolo';
+
   return (
     <div className="p-2 sm:p-4 w-full max-w-3xl mx-auto bg-white rounded-2xl shadow-xl animate-fade-in flex flex-col h-[85vh] sm:h-[90vh]">
       <div className="flex-1 overflow-y-auto pr-2 space-y-4">
@@ -129,7 +134,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ name, initialAnalysis }) => {
                 className="inline-flex items-center justify-center gap-2 font-bold py-2 px-5 rounded-lg text-sm transition-all duration-300 shadow-md w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white transform hover:scale-105"
             >
                 <WhatsAppIcon />
-                Falar com Especialista e Garantir Vaga
+                {buttonText}
             </a>
         </div>
       </div>

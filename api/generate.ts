@@ -1,5 +1,6 @@
 import { GoogleGenAI, HarmCategory, HarmBlockThreshold } from '@google/genai';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { MALE_NAMES } from '../constants';
 
 // Duplicating types and data to make the function self-contained
 enum QuestionType {
@@ -85,13 +86,6 @@ const QUIZ_DATA: QuizQuestion[] = [
           { label: 'Ainda não tenho certeza 🤷‍♀️', value: 'nao_tenho_certeza' },
         ],
     },
-];
-
-const MALE_NAMES = [
-  'joao', 'jose', 'antonio', 'francisco', 'carlos', 'paulo', 'pedro', 'lucas',
-  'luiz', 'marcos', 'luis', 'gabriel', 'rafael', 'daniel', 'marcelo', 'bruno',
-  'eduardo', 'felipe', 'rodrigo', 'fernando', 'andre', 'thiago', 'diego', 'marcio',
-  'ricardo', 'alexandre', 'sergio', 'sandro', 'adriano', 'leandro'
 ];
 
 // Helper function for retrying with exponential backoff

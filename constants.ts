@@ -89,3 +89,10 @@ export const QUIZ_DATA: QuizQuestion[] = [
     ],
   },
 ];
+
+export const MALE_NAMES = [
+  'joao', 'jose', 'antonio', 'francisco', 'carlos', 'paulo', 'pedro', 'lucas',
+  'luiz', 'marcos', 'luis', 'gabriel', 'rafael', 'daniel', 'marcelo', 'bruno',
+  'eduardo', 'felipe', 'rodrigo', 'fernando', 'andre', 'thiago', 'diego', 'marcio',
+  'ricardo', 'alexandre', 'sergio', 'sandro', 'adriano', 'leandro'
+];
