@@ -1,6 +1,33 @@
 import { GoogleGenAI, HarmCategory, HarmBlockThreshold } from '@google/genai';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
+// Helper function for retrying with exponential backoff
+async function generateContentWithRetry(
+  ai: GoogleGenAI,
+  params: any,
+  retries = 3,
+  delay = 1000
+): Promise<string> {
+  try {
+    const geminiResponse = await ai.models.generateContent(params);
+    const messageText = geminiResponse.text;
+
+    if (!messageText || messageText.trim() === '') {
+      throw new Error('A assistente não conseguiu responder no momento. Por favor, reformule sua pergunta ou tente novamente.');
+    }
+
+    return messageText;
+  } catch (e: any) {
+    const errorMessage = e.message || '';
+    if ((errorMessage.includes('503') || errorMessage.includes('overloaded') || errorMessage.includes('UNAVAILABLE')) && retries > 0) {
+      console.log(`Model overloaded on chat, retrying in ${delay}ms... (${retries} retries left)`);
+      await new Promise(res => setTimeout(res, delay));
+      return generateContentWithRetry(ai, params, retries - 1, delay * 2);
+    }
+    throw e;
+  }
+}
+
 export default async function handler(
   request: VercelRequest,
   response: VercelResponse,
@@ -127,23 +154,16 @@ Você é Luna, uma agente de vendas especialista da equipe da Simone, criadora d
         },
     ];
 
-    const geminiResponse = await ai.models.generateContent({
+    const params = {
       model: 'gemini-2.5-pro',
       contents: contents,
       config: {
         systemInstruction: systemInstruction,
       },
       safetySettings,
-    });
+    };
 
-    const messageText = geminiResponse.text;
-
-    if (!messageText || messageText.trim() === '') {
-        console.error("--- GEMINI CHAT RESPONSE EMPTY ---");
-        console.error("History:", JSON.stringify(history, null, 2));
-        console.error("Full Gemini Response:", JSON.stringify(geminiResponse, null, 2));
-        return response.status(500).json({ error: 'A assistente não conseguiu responder no momento. Por favor, reformule sua pergunta ou tente novamente.' });
-    }
+    const messageText = await generateContentWithRetry(ai, params);
 
     return response.status(200).json({ message: messageText });
 
@@ -158,7 +178,7 @@ Você é Luna, uma agente de vendas especialista da equipe da Simone, criadora d
     let errorMessage = 'Ocorreu um erro na comunicação com a assistente. Tente novamente.';
     
     if (e.message) {
-        if (e.message.includes('503') || e.message.includes('overloaded')) {
+        if (e.message.includes('503') || e.message.includes('overloaded') || e.message.includes('UNAVAILABLE')) {
             errorMessage = 'Nossa assistente virtual está com uma alta demanda no momento. Por favor, aguarde um instante e tente novamente.';
         } else if (e.message.includes('API key not valid')) {
             errorMessage = "A chave de API fornecida é inválida. Verifique a configuração no Vercel.";
@@ -167,14 +187,7 @@ Você é Luna, uma agente de vendas especialista da equipe da Simone, criadora d
         } else if (e.message.includes('timed out')) {
             errorMessage = 'A solicitação para a IA demorou muito para responder. Tente novamente.';
         } else {
-            try {
-                const errorDetail = JSON.parse(e.message);
-                if (errorDetail.error && errorDetail.error.message) {
-                    errorMessage = `Ocorreu um erro na IA: ${errorDetail.error.message}`;
-                }
-            } catch (parseError) {
-                // Keep default message
-            }
+             errorMessage = e.message;
         }
     }
     
