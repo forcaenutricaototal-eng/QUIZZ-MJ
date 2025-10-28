@@ -19,8 +19,8 @@ async function generateContentWithRetry(
     return messageText;
   } catch (e: any) {
     const errorMessage = e.message || '';
-    if ((errorMessage.includes('503') || errorMessage.includes('overloaded') || errorMessage.includes('UNAVAILABLE')) && retries > 0) {
-      console.log(`Model overloaded on chat, retrying in ${delay}ms... (${retries} retries left)`);
+    if ((errorMessage.includes('503') || errorMessage.includes('overloaded') || errorMessage.includes('UNAVAILABLE') || errorMessage.includes('429') || errorMessage.includes('RESOURCE_EXHAUSTED')) && retries > 0) {
+      console.log(`API rate limit or overload on chat, retrying in ${delay}ms... (${retries} retries left)`);
       await new Promise(res => setTimeout(res, delay));
       return generateContentWithRetry(ai, params, retries - 1, delay * 2);
     }
@@ -178,7 +178,9 @@ Você é Luna, uma agente de vendas especialista da equipe da Simone, criadora d
     let errorMessage = 'Ocorreu um erro na comunicação com a assistente. Tente novamente.';
     
     if (e.message) {
-        if (e.message.includes('503') || e.message.includes('overloaded') || e.message.includes('UNAVAILABLE')) {
+        if (e.message.includes('429') || e.message.includes('RESOURCE_EXHAUSTED')) {
+            errorMessage = 'Atingimos nosso limite de uso da IA no momento devido à alta demanda. Por favor, tente novamente em alguns minutos.';
+        } else if (e.message.includes('503') || e.message.includes('overloaded') || e.message.includes('UNAVAILABLE')) {
             errorMessage = 'Nossa assistente virtual está com uma alta demanda no momento. Por favor, aguarde um instante e tente novamente.';
         } else if (e.message.includes('API key not valid')) {
             errorMessage = "A chave de API fornecida é inválida. Verifique a configuração no Vercel.";

@@ -112,8 +112,8 @@ async function generateContentWithRetry(
     return analysisText;
   } catch (e: any) {
     const errorMessage = e.message || '';
-    if ((errorMessage.includes('503') || errorMessage.includes('overloaded') || errorMessage.includes('UNAVAILABLE')) && retries > 0) {
-      console.log(`Model overloaded on generate, retrying in ${delay}ms... (${retries} retries left)`);
+    if ((errorMessage.includes('503') || errorMessage.includes('overloaded') || errorMessage.includes('UNAVAILABLE') || errorMessage.includes('429') || errorMessage.includes('RESOURCE_EXHAUSTED')) && retries > 0) {
+      console.log(`API rate limit or overload on generate, retrying in ${delay}ms... (${retries} retries left)`);
       await new Promise(res => setTimeout(res, delay));
       return generateContentWithRetry(ai, params, retries - 1, delay * 2); // Exponential backoff
     }
@@ -236,7 +236,7 @@ export default async function handler(
               3.  **Meu Convite para Você:**
                   *   Faça uma chamada para ação pessoal e urgente.
                   *   Convide-a para conversar com você (Simone) no WhatsApp para receber acesso ao protocolo personalizado.
-                  *   Exemplo de frase: "Vi que seu caso tem solução. Preparei um protocolo inicial. Clique no botão abaixo para que eu possa te apresentar os detalhes do seu protocolo, explicar como funciona nosso acompanhamento e as condições para começarmos juntas."
+                  *   Exemplo de frase: "Vi que seu caso tem solution. Preparei um protocolo inicial. Clique no botão abaixo para que eu possa te apresentar os detalhes do seu protocolo, explicar como funciona nosso acompanhamento e as condições para começarmos juntas."
 
               **Estilo de Escrita:**
               *   Seja acolhedora, confiante e use emojis sutis (🍵, ✨, ✅).
@@ -298,7 +298,9 @@ export default async function handler(
         let errorMessage = 'Ocorreu um erro ao gerar sua análise. Tente novamente.';
     
         if (e.message) {
-            if (e.message.includes('503') || e.message.includes('overloaded') || e.message.includes('UNAVAILABLE')) {
+            if (e.message.includes('429') || e.message.includes('RESOURCE_EXHAUSTED')) {
+                errorMessage = 'Atingimos nosso limite de uso da IA no momento devido à alta demanda. Por favor, tente novamente em alguns minutos.';
+            } else if (e.message.includes('503') || e.message.includes('overloaded') || e.message.includes('UNAVAILABLE')) {
                 errorMessage = 'Nossa assistente virtual está com uma alta demanda no momento. Por favor, aguarde um instante e tente novamente.';
             } else if (e.message.includes('API key not valid')) {
                 errorMessage = "A chave de API fornecida é inválida. Verifique a configuração no Vercel.";
