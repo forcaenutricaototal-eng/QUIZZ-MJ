@@ -77,6 +77,8 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ name, initialAnalysis }) => {
   const isMaleName = MALE_NAMES.includes(normalizedFirstName);
   const buttonText = isMaleName ? 'Conversar com o Dr. Kenji e receber meu protocolo' : 'Conversar com a Simone e receber meu protocolo';
 
+  const userHasAskedQuestion = messages.some(msg => msg.role === 'user');
+
   return (
     <div className="p-2 sm:p-4 w-full max-w-3xl mx-auto bg-white rounded-2xl shadow-xl animate-fade-in flex flex-col h-[85vh] sm:h-[90vh]">
       <div className="flex-1 overflow-y-auto pr-2 space-y-4">
@@ -126,17 +128,19 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ name, initialAnalysis }) => {
             <SendIcon />
           </button>
         </form>
-         <div className="text-center mt-4">
-             <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 font-bold py-2 px-5 rounded-lg text-sm transition-all duration-300 shadow-md w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white transform hover:scale-105"
-            >
-                <WhatsAppIcon />
-                {buttonText}
-            </a>
-        </div>
+         {userHasAskedQuestion && (
+            <div className="text-center mt-4 animate-fade-in">
+                <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 font-bold py-2 px-5 rounded-lg text-sm transition-all duration-300 shadow-md w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white transform hover:scale-105"
+                >
+                    <WhatsAppIcon />
+                    {buttonText}
+                </a>
+            </div>
+        )}
       </div>
     </div>
   );
