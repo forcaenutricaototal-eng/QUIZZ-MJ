@@ -1,5 +1,9 @@
 import { QuizQuestion, QuestionType } from './types';
 
+// ATENÇÃO: Substitua o link abaixo pelo seu link real da página de vendas.
+// Este é o link mais importante do funil agora.
+export const SALES_PAGE_URL = 'https://SEU_LINK_DE_VENDAS_AQUI';
+
 export const QUIZ_DATA: QuizQuestion[] = [
   {
     id: 1,
