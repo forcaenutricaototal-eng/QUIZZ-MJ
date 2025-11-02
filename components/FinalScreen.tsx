@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { WhatsAppIcon } from './icons/WhatsAppIcon';
-import ChatScreen from './ChatScreen';
+import { MALE_NAMES, SALES_PAGE_URL } from '../constants';
 
 interface FinalScreenProps {
   name: string;
@@ -45,6 +45,16 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ name, answers }) => {
 
   const whatsappUrl = "https://wa.me/5513920005779?text=" + encodeURIComponent(`Olá, meu nome é ${name} e acabei de receber minha análise pelo quiz! Tenho interesse no protocolo.`);
 
+  const normalizedFirstName = name.trim().split(' ')[0].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const isMaleName = MALE_NAMES.includes(normalizedFirstName);
+  const persona = isMaleName ? 'o Dr. Kenji' : 'a Simone';
+
+  const formatContent = (text: string) => {
+    let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    formattedText = formattedText.replace(/\n/g, '<br />');
+    return { __html: formattedText };
+  };
+
   if (loading) {
     return (
       <div className="text-center p-6 sm:p-10 animate-fade-in w-full max-w-lg mx-auto bg-white rounded-2xl shadow-xl">
@@ -75,7 +85,32 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ name, answers }) => {
   }
   
   if (analysis) {
-     return <ChatScreen name={name} initialAnalysis={analysis} />;
+     return (
+        <div className="p-2 sm:p-4 w-full max-w-3xl mx-auto bg-white rounded-2xl shadow-xl animate-fade-in flex flex-col h-auto max-h-[90vh]">
+            <div className="flex-1 overflow-y-auto pr-2 space-y-4 p-4 text-gray-800 text-sm sm:text-base">
+                 <div dangerouslySetInnerHTML={formatContent(analysis)} />
+            </div>
+            <div className="text-center mt-4 pt-4 border-t border-gray-200 animate-fade-in flex flex-col items-center gap-3 p-4">
+                <a
+                    href={SALES_PAGE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 font-bold py-3 px-6 rounded-lg text-base transition-all duration-300 shadow-lg w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white transform hover:scale-105"
+                >
+                    Ver meu protocolo personalizado e a oferta
+                </a>
+                <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 font-semibold py-2 px-5 rounded-lg text-sm transition-colors w-full sm:w-auto bg-transparent text-gray-600 border border-gray-300 hover:bg-gray-100"
+                >
+                    <WhatsAppIcon />
+                    Ou, fale com {persona} no WhatsApp
+                </a>
+            </div>
+        </div>
+     );
   }
 
   return null;
