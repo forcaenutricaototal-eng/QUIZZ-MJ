@@ -87,7 +87,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ name, answers }) => {
   if (analysis) {
      return (
         <div className="p-2 sm:p-4 w-full max-w-3xl mx-auto bg-white rounded-2xl shadow-xl animate-fade-in flex flex-col h-auto max-h-[90vh]">
-            <div className="flex-1 overflow-y-auto pr-2 space-y-4 p-4 text-gray-800 text-sm sm:text-base">
+            <div className="flex-1 overflow-y-auto pr-2 space-y-4 p-4 text-gray-800 text-sm sm:text-base break-words">
                  <div dangerouslySetInnerHTML={formatContent(analysis)} />
             </div>
             <div className="text-center mt-4 pt-4 border-t border-gray-200 animate-fade-in flex flex-col items-center gap-3 p-4">
