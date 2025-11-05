@@ -102,7 +102,7 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ name, answers }) => {
                     className="inline-flex items-center justify-center gap-2 font-semibold py-2 px-5 rounded-lg text-sm transition-colors w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white shadow-md"
                 >
                     <WhatsAppIcon />
-                    Ou, tire suas dúvidas com a Thaís no WhatsApp
+                    Ou, tire suas dúvidas no WhatsApp
                 </a>
             </div>
         </div>
