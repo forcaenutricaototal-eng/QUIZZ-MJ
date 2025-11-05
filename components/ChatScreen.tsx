@@ -73,9 +73,6 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ name, initialAnalysis }) => {
   
   const whatsappUrl = "https://wa.me/5513920005779?text=" + encodeURIComponent(`Olá, meu nome é ${name} e acabei de receber minha análise pelo quiz! Tenho interesse no protocolo.`);
 
-  const normalizedFirstName = name.trim().split(' ')[0].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  const isMaleName = MALE_NAMES.includes(normalizedFirstName);
-
   const userHasAskedQuestion = messages.some(msg => msg.role === 'user');
 
   return (
@@ -144,7 +141,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ name, initialAnalysis }) => {
                     className="inline-flex items-center justify-center gap-2 font-semibold py-2 px-5 rounded-lg text-sm transition-colors w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white shadow-md"
                 >
                     <WhatsAppIcon />
-                    Ou, fale com {isMaleName ? 'o Dr. Kenji' : 'a Simone'} no WhatsApp
+                    Ou, tire suas dúvidas com a Thaís no WhatsApp
                 </a>
             </div>
         )}
