@@ -133,7 +133,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ name, initialAnalysis }) => {
                     href={SALES_PAGE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 font-bold py-3 px-6 rounded-lg text-base transition-all duration-300 shadow-lg w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white transform hover:scale-105"
+                    className="inline-flex items-center justify-center gap-2 font-bold py-3 px-6 rounded-lg text-base transition-all duration-300 shadow-lg w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white transform hover:scale-105"
                 >
                     Ver meu protocolo personalizado e a oferta
                 </a>
@@ -141,7 +141,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ name, initialAnalysis }) => {
                     href={whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 font-semibold py-2 px-5 rounded-lg text-sm transition-colors w-full sm:w-auto bg-transparent text-gray-600 border border-gray-300 hover:bg-gray-100"
+                    className="inline-flex items-center justify-center gap-2 font-semibold py-2 px-5 rounded-lg text-sm transition-colors w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white shadow-md"
                 >
                     <WhatsAppIcon />
                     Ou, fale com {isMaleName ? 'o Dr. Kenji' : 'a Simone'} no WhatsApp
