@@ -77,11 +77,9 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
                 )}
                 <span className="flex-1 text-sm sm:text-base font-medium text-gray-800 peer-checked:text-emerald-900 peer-checked:font-bold">{option.label}</span>
                 <div className="w-6 h-6 rounded-md border-2 flex-shrink-0 flex items-center justify-center ml-4 transition-colors border-gray-400 bg-white peer-checked:bg-emerald-500 peer-checked:border-emerald-600">
-                    {isSelected && (
-                        <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
-                    )}
+                    <svg className="w-4 h-4 text-white hidden peer-checked:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
                 </div>
             </label>
         </div>
