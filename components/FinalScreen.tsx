@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { WhatsAppIcon } from './icons/WhatsAppIcon';
-import ChatScreen from './ChatScreen';
+import { SALES_PAGE_URL } from '../constants';
 
 interface FinalScreenProps {
   name: string;
@@ -45,6 +45,13 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ name, answers }) => {
 
   const whatsappUrl = "https://wa.me/5513920005779?text=" + encodeURIComponent(`Olá, meu nome é ${name} e acabei de receber minha análise pelo quiz! Tenho interesse no protocolo.`);
 
+  const formatContent = (text: string) => {
+    let formattedText = text
+      .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-gray-900">$1</strong>')
+      .replace(/\n/g, '<br />');
+    return { __html: formattedText };
+  };
+
   if (loading) {
     return (
       <div className="text-center p-6 sm:p-10 animate-fade-in w-full max-w-lg mx-auto bg-white rounded-2xl shadow-xl">
@@ -76,7 +83,31 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ name, answers }) => {
   
   if (analysis) {
      return (
-        <ChatScreen name={name} initialAnalysis={analysis} />
+        <div className="p-4 sm:p-6 w-full max-w-3xl mx-auto bg-white rounded-2xl shadow-xl animate-fade-in flex flex-col">
+            <div className="text-left space-y-4 text-gray-700 leading-relaxed text-sm sm:text-base">
+                <div dangerouslySetInnerHTML={formatContent(analysis)} />
+            </div>
+
+            <div className="text-center mt-8 pt-6 border-t border-gray-200 animate-fade-in flex flex-col items-center gap-4">
+                <a
+                    href={SALES_PAGE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 shadow-lg w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white transform hover:scale-105"
+                >
+                    Ver meu protocolo personalizado e a oferta
+                </a>
+                <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 font-semibold py-2 px-5 rounded-lg text-sm transition-colors w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white shadow-md"
+                >
+                    <WhatsAppIcon />
+                    Ou, tire suas dúvidas no WhatsApp
+                </a>
+            </div>
+        </div>
      );
   }
 
