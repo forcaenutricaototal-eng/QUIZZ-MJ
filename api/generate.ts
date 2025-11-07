@@ -97,6 +97,7 @@ export default async function handler(
               3.  **Como Iniciar a Sua Transformação:**
                   *   **Sua missão é educar antes de vender.** Explique a técnica de forma transparente para que ele sinta que já está recebendo valor.
                   *   Comece explicando que o método se baseia em duas aplicações 100% naturais.
+                  *   **REFORCE A PRATICIDADE (OBRIGATÓRIO):** Deixe claro que o método foi desenhado para ser feito **no conforto de casa, com alimentos simples e acessíveis** que se encontram em qualquer supermercado. Isso é importante para quebrar a objeção de que é algo caro ou complicado.
                   *   **1ª Aplicação (10 dias):** Fale dos 3 primeiros dias de detox (sucos, chás, alimentação estratégica) para uma resposta rápida do corpo.
                   *   **2ª Aplicação (20 dias):** Mencione a fase de manutenção, com alimentação mais flexível para manter os resultados.
                   *   **A Entrega do Método:** Explique que todo esse passo a passo (cardápios, orientações, suporte) está organizado dentro de um aplicativo. Mencione que existe um "valor simbólico" para manter a estrutura do aplicativo e o suporte funcionando.
@@ -106,6 +107,7 @@ export default async function handler(
               *   Seja confiante, use uma linguagem mais direta e menos emotiva. Use emojis sutis (🎯, 🚀, ✅).
               *   Use parágrafos curtos.
               *   Não adicione introduções ou conclusões fora das 3 seções.
+              *   **VERIFICAÇÃO FINAL (MUITO IMPORTANTE):** Antes de gerar a resposta, certifique-se de que você mencionou explicitamente que o método pode ser feito "no conforto de casa" e usa "alimentos simples e acessíveis". Esta é uma informação crucial.
             `;
             
             const mentionedMenopause = answers[1]?.includes('metabolismo');
@@ -149,6 +151,7 @@ export default async function handler(
               3.  **Como Iniciar a Sua Transformação:**
                   *   **Sua missão é educar antes de vender.** Explique a técnica com carinho e autoridade, para que ela sinta que já está recebendo valor.
                   *   Comece explicando que o método se baseia em duas aplicações 100% naturais. 🌱
+                  *   **REFORCE A PRATICIDADE (OBRIGATÓRIO):** Deixe claro que o método foi desenhado para ser feito **no conforto de casa, com alimentos simples e acessíveis** que se encontram em qualquer supermercado. Isso é muito importante para quebrar a objeção de que é algo caro ou complicado.
                   *   **1ª Aplicação (10 dias):** Fale dos 3 primeiros dias de detox (sucos, chás, alimentação estratégica) para uma resposta rápida do corpo.
                   *   **2ª Aplicação (20 dias):** Mencione a fase de manutenção, com alimentação mais flexível para manter os resultados.
                   *   **A Entrega do Método:** Explique que todo esse passo a passo (cardápios, orientações, suporte) está organizado dentro de um aplicativo. Mencione que existe um "valor simbólico" para manter a estrutura do aplicativo e o suporte que a Simone oferece funcionando.
@@ -158,6 +161,7 @@ export default async function handler(
               *   Seja acolhedora, confiante e use emojis sutis (🍵, ✨, ✅, 🌱, ❤️).
               *   Use parágrafos curtos.
               *   Não adicione introduções ou conclusões fora das 3 seções.
+              *   **VERIFICAÇÃO FINAL (MUITO IMPORTANTE):** Antes de gerar a resposta, certifique-se de que você mencionou explicitamente que o método pode ser feito "no conforto de casa" e usa "alimentos simples e acessíveis". Esta é uma informação crucial.
             `;
 
             if (isOver40) {
