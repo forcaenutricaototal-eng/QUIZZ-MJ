@@ -64,20 +64,20 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onNext, onBack, isLastSte
                 value={option.value}
                 checked={isSelected}
                 onChange={() => handleSelection(option.value)}
-                className="sr-only peer"
+                className="sr-only"
             />
             <label
                 htmlFor={inputId}
-                className="flex items-center p-3 sm:p-4 rounded-xl cursor-pointer transition-all duration-300 border-2 shadow-sm bg-white border-gray-300 hover:border-emerald-400 hover:bg-emerald-50 hover:shadow-md peer-checked:border-emerald-600 peer-checked:bg-emerald-100 peer-checked:shadow-xl peer-checked:scale-[1.03]"
+                className={`flex items-center p-3 sm:p-4 rounded-xl cursor-pointer transition-all duration-300 border-2 shadow-sm bg-white border-gray-300 hover:border-emerald-400 hover:bg-emerald-50 hover:shadow-md ${isSelected ? 'border-emerald-600 bg-emerald-100 shadow-xl scale-[1.03]' : ''}`}
             >
                 {option.image && (
                     <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 mr-4 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
                         <img src={option.image} alt={option.label} className="w-full h-full object-cover" />
                     </div>
                 )}
-                <span className="flex-1 text-sm sm:text-base font-medium text-gray-800 peer-checked:text-emerald-900 peer-checked:font-bold">{option.label}</span>
-                <div className="w-6 h-6 rounded-md border-2 flex-shrink-0 flex items-center justify-center ml-4 transition-colors border-gray-400 bg-white peer-checked:bg-emerald-500 peer-checked:border-emerald-600">
-                    <svg className="w-4 h-4 text-white hidden peer-checked:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                <span className={`flex-1 text-sm sm:text-base font-medium text-gray-800 ${isSelected ? 'text-emerald-900 font-bold' : ''}`}>{option.label}</span>
+                <div className={`w-6 h-6 rounded-md border-2 flex-shrink-0 flex items-center justify-center ml-4 transition-colors border-gray-400 bg-white ${isSelected ? 'bg-emerald-500 border-emerald-600' : ''}`}>
+                    <svg className={`w-4 h-4 text-white ${isSelected ? 'block' : 'hidden'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                 </div>
