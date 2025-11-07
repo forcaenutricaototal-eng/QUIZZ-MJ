@@ -79,7 +79,7 @@ export default async function handler(
               A resposta DEVE ter 3 seções, com estes títulos exatos:
               **Análise do seu Perfil**
               **O Caminho para seu Resultado**
-              **Um Convite Especial para Você**
+              **Como Iniciar a Sua Transformação**
               **IMPORTANTE:** Os títulos das seções devem ser formatados EXATAMENTE como **Nome da Seção**, usando dois asteriscos. NÃO use '#', '##', '###' ou qualquer outro formato de título.
 
               **Regras para Cada Seção:**
@@ -94,10 +94,13 @@ export default async function handler(
                   *   **INCLUA ESTA EXPLICAÇÃO TÉCNICA (OBRIGATÓRIO):** "Enquanto o Monjaro de farmácia ativa apenas os hormônios GIP e GLP-1, nosso protocolo Monjaro Japonês é muito mais poderoso. Ele estimula um conjunto completo de hormônios da saciedade — GIP, GLP-1, CCK e PYY — através de alimentos específicos. Para reforçar, o protocolo inclui alimentos que aumentam a produção de neurotransmissores como dopamina e noradrenalina, que agem no centro da fome e aumentam a disposição. É por isso que o resultado é tão profundo e duradouro, sem perda de massa muscular."
                   *   **ADICIONE ESTA PROVA SOCIAL (OBRIGATÓRIO):** "Homens que aplicam o método relatam uma sensação impressionante de saciedade natural e energia renovada: a fome some e o corpo fica satisfeito."
 
-              3.  **Um Convite Especial para Você:**
-                  *   Faça uma chamada para ação clara e direta.
-                  *   Convide-o para ver o protocolo e, se tiver dúvidas, chamar no WhatsApp.
-                  *   Exemplo de frase: "O Kenji viu que seu caso tem solução e preparou um protocolo inicial para você. Para ver todos os detalhes e as condições especiais para começar, clique no botão 'Ver meu protocolo'. Se ficar qualquer dúvida, é só chamar no WhatsApp."
+              3.  **Como Iniciar a Sua Transformação:**
+                  *   **Sua missão é educar antes de vender.** Explique a técnica de forma transparente para que ele sinta que já está recebendo valor.
+                  *   Comece explicando que o método se baseia em duas aplicações 100% naturais.
+                  *   **1ª Aplicação (10 dias):** Fale dos 3 primeiros dias de detox (sucos, chás, alimentação estratégica) para uma resposta rápida do corpo.
+                  *   **2ª Aplicação (20 dias):** Mencione a fase de manutenção, com alimentação mais flexível para manter os resultados.
+                  *   **A Entrega do Método:** Explique que todo esse passo a passo (cardápios, orientações, suporte) está organizado dentro de um aplicativo. Mencione que existe um "valor simbólico" para manter a estrutura do aplicativo e o suporte funcionando.
+                  *   **Chamada para Ação Suave:** Finalize convidando-o a clicar no botão 'Ver meu protocolo personalizado e a oferta' para conhecer os detalhes e as condições especiais. Mantenha a opção do WhatsApp para dúvidas.
 
               **Estilo de Escrita:**
               *   Seja confiante, use uma linguagem mais direta e menos emotiva. Use emojis sutis (🎯, 🚀, ✅).
@@ -128,7 +131,7 @@ export default async function handler(
               A resposta DEVE ter 3 seções, com estes títulos exatos:
               **Análise do seu Perfil**
               **O Caminho para seu Resultado**
-              **Um Convite Especial para Você**
+              **Como Iniciar a Sua Transformação**
               **IMPORTANTE:** Os títulos das seções devem ser formatados EXATAMENTE como **Nome da Seção**, usando dois asteriscos. NÃO use '#', '##', '###' ou qualquer outro formato de título.
 
               **Regras para Cada Seção:**
@@ -143,13 +146,16 @@ export default async function handler(
                   *   **INCLUA ESTA EXPLICAÇÃO TÉCNICA (OBRIGATÓRIO):** "Enquanto o Monjaro de farmácia ativa apenas os hormônios GIP e GLP-1, o nosso protocolo Monjaro Japonês é muito mais poderoso. Ele estimula um conjunto completo de hormônios da saciedade — GIP, GLP-1, CCK e PYY — através de alimentos específicos. Para reforçar ainda mais essa sensação, o protocolo inclui alimentos que aumentam a produção de neurotransmissores como serotonina, dopamina e noradrenalina. Eles agem diretamente no centro da fome, inibindo o apetite de forma natural. É por isso que o resultado é tão profundo e duradouro."
                   *   **ADICIONE ESTA PROVA SOCIAL (OBRIGATÓRIO):** "Quem aplicou o método descreve essa sensação impressionante de saciedade natural: a fome some e o corpo fica satisfeito."
 
-              3.  **Um Convite Especial para Você:**
-                  *   Faça uma chamada para ação pessoal e urgente.
-                  *   Convide-a para ver o protocolo e, se tiver dúvidas, chamar no WhatsApp.
-                  *   Exemplo de frase: "Vi que seu caso tem solução. A Simone preparou um protocolo inicial para você. Para ver todos os detalhes do seu protocolo, como funciona o acompanhamento e as condições especiais para começar, clique no botão 'Ver meu protocolo'. Se ficar qualquer dúvida, é só chamar no WhatsApp."
+              3.  **Como Iniciar a Sua Transformação:**
+                  *   **Sua missão é educar antes de vender.** Explique a técnica com carinho e autoridade, para que ela sinta que já está recebendo valor.
+                  *   Comece explicando que o método se baseia em duas aplicações 100% naturais. 🌱
+                  *   **1ª Aplicação (10 dias):** Fale dos 3 primeiros dias de detox (sucos, chás, alimentação estratégica) para uma resposta rápida do corpo.
+                  *   **2ª Aplicação (20 dias):** Mencione a fase de manutenção, com alimentação mais flexível para manter os resultados.
+                  *   **A Entrega do Método:** Explique que todo esse passo a passo (cardápios, orientações, suporte) está organizado dentro de um aplicativo. Mencione que existe um "valor simbólico" para manter a estrutura do aplicativo e o suporte que a Simone oferece funcionando.
+                  *   **Chamada para Ação Suave:** Finalize convidando-a a clicar no botão 'Ver meu protocolo personalizado e a oferta' para conhecer os detalhes e as condições especiais. Mantenha a opção do WhatsApp para dúvidas. ❤️
 
               **Estilo de Escrita:**
-              *   Seja acolhedora, confiante e use emojis sutis (🍵, ✨, ✅).
+              *   Seja acolhedora, confiante e use emojis sutis (🍵, ✨, ✅, 🌱, ❤️).
               *   Use parágrafos curtos.
               *   Não adicione introduções ou conclusões fora das 3 seções.
             `;
