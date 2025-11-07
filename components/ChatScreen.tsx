@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { GoogleGenAI } from '@google/genai';
+import type { Chat } from '@google/genai';
 import { WhatsAppIcon } from './icons/WhatsAppIcon';
 import { SendIcon } from './icons/SendIcon';
 import { SALES_PAGE_URL } from '../constants';
@@ -23,6 +24,23 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ name, initialAnalysis }) => {
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
+  const chat = useMemo<Chat | null>(() => {
+    if (!process.env.API_KEY) {
+      setError("A chave da API do Google não foi configurada.");
+      return null;
+    }
+    try {
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      return ai.chats.create({
+          model: 'gemini-2.5-flash',
+          history: [{ role: 'model', parts: [{ text: initialAnalysis }] }],
+      });
+    } catch (e: any) {
+       setError(`Erro ao inicializar o chat: ${e.message}`);
+       return null;
+    }
+  }, [initialAnalysis]);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -37,45 +55,33 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ name, initialAnalysis }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || loading) return;
+    if (!input.trim() || loading || !chat) return;
 
-    const userMessage: Message = { role: 'user', parts: [{ text: input.trim() }] };
-    const newHistory = [...history, userMessage];
-    setHistory(newHistory);
-    const currentInput = input;
+    const userMessageText = input.trim();
+    const userMessage: Message = { role: 'user', parts: [{ text: userMessageText }] };
+    
+    setHistory(prevHistory => [...prevHistory, userMessage]);
     setInput('');
     setLoading(true);
     setError(null);
 
     try {
-      if (!process.env.API_KEY) {
-        throw new Error("A chave da API do Google não foi configurada.");
-      }
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      
-      const chat = ai.chats.create({
-        model: 'gemini-2.5-flash',
-        history: newHistory.slice(0, -1), // Send all but the last message
-      });
-      
-      const result = await chat.sendMessage({ message: currentInput });
+      const result = await chat.sendMessage({ message: userMessageText });
       const response = result;
       
       const modelMessage: Message = { role: 'model', parts: [{ text: response.text }] };
-      setHistory(prev => [...prev, modelMessage]);
+      setHistory(prevHistory => [...prevHistory, modelMessage]);
 
     } catch (e: any) {
       setError(e.message);
       const errorMessage: Message = { role: 'model', parts: [{ text: `Desculpe, ocorreu um erro: ${e.message}` }] };
-      setHistory(prev => [...prev, errorMessage]);
+      setHistory(prevHistory => [...prevHistory, errorMessage]);
     } finally {
       setLoading(false);
     }
   };
   
   const whatsappUrl = "https://wa.me/5513920005779?text=" + encodeURIComponent(`Olá, meu nome é ${name} e acabei de receber minha análise pelo quiz! Tenho interesse no protocolo.`);
-
-  const userHasAskedQuestion = history.some(msg => msg.role === 'user');
 
   return (
     <div className="p-2 sm:p-4 w-full max-w-3xl mx-auto bg-white rounded-2xl shadow-xl animate-fade-in flex flex-col h-[85vh] sm:h-[90vh]">
@@ -103,6 +109,13 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ name, initialAnalysis }) => {
               </div>
             </div>
           </div>
+        )}
+         {error && (
+            <div className="flex justify-start">
+                 <div className="max-w-md lg:max-w-lg p-3 rounded-2xl text-left shadow-sm bg-red-100 text-red-800 rounded-bl-none">
+                    <p className="text-sm"><strong>Erro:</strong> {error}</p>
+                 </div>
+            </div>
         )}
         <div ref={messagesEndRef} />
       </div>
