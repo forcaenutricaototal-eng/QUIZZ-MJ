@@ -27,7 +27,8 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ name, answers }) => {
       const responseBody = await response.json();
 
       if (!response.ok) {
-        throw new Error(responseBody.error || 'Ocorreu um erro desconhecido ao gerar a análise.');
+        // Usa a mensagem de erro da API, se disponível, ou uma mensagem padrão.
+        throw new Error(responseBody.error || 'Nossa assistente virtual está com uma alta demanda no momento. Por favor, aguarde um instante e tente novamente.');
       }
 
       setAnalysis(responseBody.analysis);
@@ -71,8 +72,10 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ name, answers }) => {
       <div className="text-center p-6 sm:p-10 animate-fade-in w-full max-w-lg mx-auto bg-white rounded-2xl shadow-xl">
         <div className="text-5xl mb-4">😢</div>
         <h2 className="text-2xl font-bold text-red-600">Ocorreu um Erro</h2>
-        <p className="text-gray-600 mt-4 mb-6 bg-red-50 p-3 rounded-lg border border-red-200 text-sm">{error}</p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <div className="text-gray-600 mt-4 mb-6 bg-red-50 p-4 rounded-lg border border-red-200">
+          <p className="text-sm">{error}</p>
+        </div>
+        <div className="flex flex-col sm:flex-row-reverse items-center justify-center gap-3">
             <button
                 onClick={handleRetry}
                 className="font-bold py-3 px-6 rounded-lg text-base transition-colors shadow-lg bg-emerald-500 hover:bg-emerald-600 text-white w-full sm:w-auto"
