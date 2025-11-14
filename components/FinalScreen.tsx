@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { WhatsAppIcon } from './icons/WhatsAppIcon';
 import { SALES_PAGE_URL } from '../constants';
 
@@ -12,36 +12,40 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ name, answers }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const generateAnalysis = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const response = await fetch('/api/generate', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ name, answers }),
-        });
+  const generateAnalysis = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch('/api/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, answers }),
+      });
 
-        const responseBody = await response.json();
+      const responseBody = await response.json();
 
-        if (!response.ok) {
-          throw new Error(responseBody.error || 'Ocorreu um erro desconhecido ao gerar a análise.');
-        }
-
-        setAnalysis(responseBody.analysis);
-      } catch (e: any) {
-        console.error(e);
-        setError(e.message || 'Falha ao conectar com o servidor. Verifique sua conexão e tente novamente.');
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+        throw new Error(responseBody.error || 'Ocorreu um erro desconhecido ao gerar a análise.');
       }
-    };
 
-    generateAnalysis();
+      setAnalysis(responseBody.analysis);
+    } catch (e: any) {
+      console.error(e);
+      setError(e.message || 'Falha ao conectar com o servidor. Verifique sua conexão e tente novamente.');
+    } finally {
+      setLoading(false);
+    }
   }, [name, answers]);
+
+  useEffect(() => {
+    generateAnalysis();
+  }, [generateAnalysis]);
+
+  const handleRetry = () => {
+    generateAnalysis();
+  };
 
   const whatsappUrl = "https://wa.me/5513920005779?text=" + encodeURIComponent(`Olá, meu nome é ${name} e acabei de receber minha análise pelo quiz! Tenho interesse no protocolo.`);
 
@@ -68,15 +72,23 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ name, answers }) => {
         <div className="text-5xl mb-4">😢</div>
         <h2 className="text-2xl font-bold text-red-600">Ocorreu um Erro</h2>
         <p className="text-gray-600 mt-4 mb-6 bg-red-50 p-3 rounded-lg border border-red-200 text-sm">{error}</p>
-        <a 
-          href={whatsappUrl} 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="inline-flex items-center justify-center gap-3 font-bold py-3 px-6 rounded-lg text-base transition-colors shadow-lg bg-green-500 hover:bg-green-600 text-white"
-        >
-          <WhatsAppIcon />
-          Falar com Suporte
-        </a>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <button
+                onClick={handleRetry}
+                className="font-bold py-3 px-6 rounded-lg text-base transition-colors shadow-lg bg-emerald-500 hover:bg-emerald-600 text-white w-full sm:w-auto"
+            >
+                Tentar Novamente
+            </button>
+            <a 
+              href={whatsappUrl} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-flex items-center justify-center gap-3 font-bold py-3 px-6 rounded-lg text-base transition-colors shadow-lg bg-green-500 hover:bg-green-600 text-white w-full sm:w-auto"
+            >
+              <WhatsAppIcon />
+              Falar com Suporte
+            </a>
+        </div>
       </div>
     );
   }
